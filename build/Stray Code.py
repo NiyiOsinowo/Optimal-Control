@@ -57,3 +57,15 @@
 
 
 # gradient_check(model, inputs, inputs1, output_labels)
+
+# Alternate version of TransitionModel
+#   def TransitionModel(self, State: State, Action: T.Tensor= T.tensor([0.0, 0.0]), TimeInterval:float= 1.0, Resolution: int=10000)-> State:
+#     '''Outputs the state of the system after taking an action(applying a constant force for *TimeInterval* seconds)'''
+#     CurrentVelocity= State.Velocity
+#     CurrrentPosition= State.Position
+#     TimeTaken= 0
+#     while TimeTaken< TimeInterval:
+#         CurrentVelocity = CurrentVelocity + ((self.ChargedParticle.Charge* self.Field(CurrrentPosition))+Action)/self.ChargedParticle.Mass*(TimeInterval/Resolution)
+#         CurrrentPosition= CurrrentPosition+ (CurrentVelocity)*(TimeInterval/Resolution)
+#         TimeTaken+= (TimeInterval/Resolution)
+#     return self.State(CurrrentPosition, CurrentVelocity)
