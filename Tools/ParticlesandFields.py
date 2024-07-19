@@ -1,21 +1,9 @@
-'''This repository contains a detailed implementation of the Reinforcement Learning Enviroment class'''
-import matplotlib.pyplot as plt
+'''This repository contains a template for Particles and Fields'''
 import numpy as np
 from dataclasses import *
-import torch as T
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
-from typing import Any, Callable, Dict, List, Tuple, Union, Optional
-from functools import wraps
-import os
-import random
+from typing import Callable
 from abc import ABC, abstractmethod
-from collections import deque, namedtuple
-import scipy.integrate as integrate
-import scipy.optimize as optimize
-T.Tensor.ndim = property(lambda self: len(self.shape))
-from EnforceTyping import EnforceClassTyping, EnforceFunctionTyping, EnforceMethodTyping
+from EnforceTyping import EnforceClassTyping
 
 @dataclass
 class Particle(EnforceClassTyping):
@@ -25,11 +13,13 @@ class Particle(EnforceClassTyping):
 
 @dataclass
 class Field(ABC):
+  # Dimensionality: int
+  # Dynamics: Callable
   @abstractmethod
-  def FieldStrength(self, ObservationPosition: T.Tensor)-> T.Tensor:
+  def FieldStrength(self, ObservationPosition: np.ndarray)-> np.ndarray:
     ...
   @abstractmethod
-  def FieldPotential(self, ObservationPosition: T.Tensor)-> float:
+  def FieldPotential(self, ObservationPosition: np.ndarray)-> float:
     ...
-  def PotentialDifference(self, InitialPosition: T.Tensor, FinalPosition: T.Tensor) -> float:
+  def PotentialDifference(self, InitialPosition: np.ndarray, FinalPosition: np.ndarray) -> float:
     ...
