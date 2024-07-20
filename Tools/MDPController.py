@@ -1,15 +1,12 @@
 '''This repository contains a detailed implementation of the Reinforcement Learning MDPController class'''
-import matplotlib.pyplot as plt
 from Environment import Environment
 from dataclasses import *
-import torch as T
-from typing import Any, Callable, Dict, List, Tuple, Union, Optional
-from functools import wraps
+import torch as T  
 from abc import ABC, abstractmethod
 @dataclass
 class MDPController(ABC):
-  MDPControllerEnvironment: Environment
-  ControlFrequency: float
+  MDPEnvironment: Environment
+
   @abstractmethod
   def Act(self, Observation: T.Tensor)-> T.Tensor:
       ...
