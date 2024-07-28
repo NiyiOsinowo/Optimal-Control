@@ -13,10 +13,9 @@ class Particle(EnforceClassTyping):
 
 @dataclass
 class Field(ABC):
-  # Dimensionality: int
-  # Dynamics: Callable
+  Dimensionality: tuple
   @abstractmethod
-  def FieldStrength(self, ObservationPosition: np.ndarray)-> np.ndarray:
+  def Dynamics(self, ObservationPosition: np.ndarray)-> np.ndarray:
     ...
   @abstractmethod
   def FieldPotential(self, ObservationPosition: np.ndarray)-> float:
