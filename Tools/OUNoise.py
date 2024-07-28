@@ -1,5 +1,5 @@
 import numpy as np
-class OUActionNoise:
+class OUNoise:
     def __init__(self, mu, sigma=0.15, theta=.2, dt=1e-2, x0=None):
         self.theta = theta
         self.mu = mu
@@ -18,6 +18,6 @@ class OUActionNoise:
         self.x_prev = self.x0 if self.x0 is not None else np.zeros_like(self.mu)
 
     def __repr__(self):
-        return 'OrnsteinUhlenbeckActionNoise(mu={}, sigma={})'.format(
+        return 'OrnsteinUhlenbeckNoise(mu={}, sigma={})'.format(
                                                             self.mu, self.sigma)
  
