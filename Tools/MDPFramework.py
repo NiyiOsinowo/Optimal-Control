@@ -1,12 +1,10 @@
-'''This repository contains a detailed implementation of the Reinforcement Learning Enviroment class'''
-
+'''This repository contains a detailed implementation of the MDP Framework class'''
 from dataclasses import *
-from typing import Any, Callable, Dict, List, Tuple, Union, Optional
-from functools import wraps
+import numpy as np
 from abc import ABC, abstractmethod
-
+from typing import Callable
 @dataclass(kw_only=True)
-class Environment(ABC):  
+class MDPEnvironment(ABC):  
 
   class State:
       pass
@@ -41,4 +39,15 @@ class Environment(ABC):
   @abstractmethod
   def Reset(self):
       ...
-      
+
+@dataclass(kw_only=True)
+class MDPController(ABC):
+  MDPEnvironment: MDPEnvironment
+  Policy: Callable
+
+  @abstractmethod
+  def Act(self, Observation: np.ndarray)-> np.ndarray:
+      ...
+  @abstractmethod
+  def Observe(self)-> np.ndarray:
+      ...

@@ -1,7 +1,6 @@
 '''This repository contains a template for Particles and Fields'''
 import numpy as np
 from dataclasses import *
-from typing import Callable
 from abc import ABC, abstractmethod
 from EnforceTyping import EnforceClassTyping
 
