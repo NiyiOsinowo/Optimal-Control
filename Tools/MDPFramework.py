@@ -26,7 +26,7 @@ class MDPEnvironment(ABC):
       ...
 
   @abstractmethod
-  def state_transition(self, state: State, action: Any)-> tuple[float, State, bool]:
+  def transition_step(self, state: State, action: Any)-> tuple[float, State, bool]:
       ...
 
   @abstractmethod
