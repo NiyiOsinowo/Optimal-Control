@@ -1,10 +1,6 @@
 from dataclasses import *
 from typing import Any, Callable, Dict, List, Tuple, Union, Optional
 from functools import wraps
-import os
-import random
-from abc import ABC, abstractmethod
-from collections import deque, namedtuple
 @dataclass
 class EnforceClassTyping:
     def __post_init__(self):
@@ -13,7 +9,7 @@ class EnforceClassTyping:
                 current_type = type(self.__dict__[name])
                 raise TypeError(f"The field `{name}` was assigned by `{current_type}` instead of `{field_type}`")
         # print("Check is passed successfully")
-def EnforceMethodTyping(func: Callable) -> Callable:
+def enforce_method_typing(func: Callable) -> Callable:
     'Enforces type annotation/hints for class mathods'
     arg_annotations = func.__annotations__
     if not arg_annotations:
@@ -34,7 +30,7 @@ def EnforceMethodTyping(func: Callable) -> Callable:
         return func(self, *args, **kwargs)
 
     return wrapper
-def EnforceFunctionTyping(func: Callable) -> Callable:
+def enforce_function_typing(func: Callable) -> Callable:
     'Enforces type annotation/hints for other functions'
     @wraps(func)
     def wrapper(*args, **kwargs):
