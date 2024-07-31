@@ -52,3 +52,15 @@ class MDPController(ABC):
   @abstractmethod
   def observe(self)-> np.ndarray:
       ...
+
+@dataclass
+class LearningAgent(MDPController):
+  environment: MDPEnvironment
+  policy: Callable
+
+  def act(self, observation: np.ndarray)-> np.ndarray:
+        pass
+  def observe(self)-> np.ndarray:
+        pass
+  def Learn(self):
+        pass

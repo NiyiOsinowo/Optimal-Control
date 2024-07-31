@@ -21,7 +21,7 @@ class ClassicalParticle(EnforceClassTyping):
 @dataclass
 class ClassicalField(Field):
   dimensionality: tuple
-  @abstractmethod
+
   def dynamics(self, observation_position: np.ndarray, time: float)-> np.ndarray:
     ...
   def potential(self, observation_position: np.ndarray, time: float)-> float:
