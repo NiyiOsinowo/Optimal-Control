@@ -23,6 +23,7 @@ class ClassicalField(Field):
   dimensionality: tuple
 
   def dynamics(self, observation_position: np.ndarray, time: float)-> np.ndarray:
+    NotImplementedError ("Subclasses must implement this method")
     ...
   def potential(self, observation_position: np.ndarray, time: float)-> float:
     # A function that returns the potential at a given position and/or time in the vector field  

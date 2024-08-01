@@ -62,5 +62,5 @@ class LearningAgent(MDPController):
         pass
   def observe(self)-> np.ndarray:
         pass
-  def Learn(self):
+  def learn(self):
         pass
