@@ -5,58 +5,65 @@ import torch.nn.functional as F
 import torch.optim as optim
 import os
 
+    
 class CriticNetwork(nn.Module):
-    def __init__(self, learning_rate, state_dims, fc1_dims, fc2_dims, n_actions, name, chkpt_dir='tmp/ddpg'):
+    def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir='tmp/ddpg'):
         super(CriticNetwork, self).__init__() 
         self.checkpoint_file = os.path.join(chkpt_dir,name+'_ddpg')
+        layers = []
 
-        self.fc1 = T.nn.utils.parametrizations.weight_norm(nn.Linear(state_dims+n_actions, fc1_dims)) 
-        self.bn1 = nn.LayerNorm(fc1_dims)
-        self.fc2 = T.nn.utils.parametrizations.weight_norm(nn.Linear(fc1_dims, fc2_dims))
-        self.bn2 = nn.LayerNorm(fc2_dims)
-        self.fc3 = T.nn.utils.parametrizations.weight_norm(nn.Linear(fc2_dims, 1))
+        current_input_size = state_size+ action_size
+        
+        for hidden_layer_size, layer_activation_func in zip(hidden_layers, layer_activations):
+            layers.append(T.nn.utils.parametrizations.weight_norm(nn.Linear(current_input_size, hidden_layer_size)) )
+            layers.append(nn.LayerNorm(hidden_layer_size))
+            layers.append(layer_activation_func)
+            current_input_size = hidden_layer_size
+        
+        layers.append(T.nn.utils.parametrizations.weight_norm(nn.Linear(current_input_size, 1)))
 
-        self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
+        self.network = nn.Sequential(*layers)
+        self.optimizer = optim.Adam(self.network.parameters(), lr=learning_rate)
 
         self.device = T.device('cuda:0' if T.cuda.is_available() else 'cpu')
         self.to(self.device)
 
     def forward(self, state, action):
         x = T.cat([state, action], dim=-1)
-        x = T.relu(self.bn1(self.fc1(x)))
-        x = T.relu(self.bn2(self.fc2(x)))
-        x = self.fc3(x)
-        return x
+        return self.network(x)
 
     def save_checkpoint(self):
         print('... saving checkpoint ...')
-        T.save(self.state_dict(), self.checkpoint_file)
+        T.save(self.network.state_dict(), self.checkpoint_file)
 
     def load_checkpoint(self):
         print('... loading checkpoint ...')
-        self.load_state_dict(T.load(self.checkpoint_file))
+        self.network.load_state_dict(T.load(self.checkpoint_file))
  
 class ActorNetwork(nn.Module):
-    def __init__(self, learning_rate, state_dims, fc1_dims, fc2_dims, n_actions, name, chkpt_dir='tmp/ddpg'):
+    def __init__(state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir='tmp/ddpg'):
         super(ActorNetwork, self).__init__()
         self.checkpoint_file = os.path.join(chkpt_dir,name+'_ddpg')
+        layers = []
 
-        self.fc1 = T.nn.utils.parametrizations.weight_norm(nn.Linear(state_dims , fc1_dims)) 
-        self.bn1 = nn.LayerNorm(fc1_dims)
-        self.fc2 = T.nn.utils.parametrizations.weight_norm(nn.Linear(fc1_dims, fc2_dims))
-        self.bn2 = nn.LayerNorm(fc2_dims)
-        self.fc3 = T.nn.utils.parametrizations.weight_norm(nn.Linear(fc2_dims, n_actions))
+        current_input_size = state_size
+        
+        for hidden_layer_size, layer_activation_func in zip(hidden_layers, layer_activations):
+            layers.append(T.nn.utils.parametrizations.weight_norm(nn.Linear(current_input_size, hidden_layer_size)) )
+            layers.append(nn.LayerNorm(hidden_layer_size))
+            layers.append(layer_activation_func)
+            current_input_size = hidden_layer_size
+        
+        layers.append(T.nn.utils.parametrizations.weight_norm(nn.Linear(current_input_size, action_size)))
 
-        self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
+        self.network = nn.Sequential(*layers)
+        self.optimizer = optim.Adam(self.network.parameters(), lr=learning_rate)
 
         self.device = T.device('cuda:0' if T.cuda.is_available() else 'cpu')
         self.to(self.device)
 
     def forward(self, state):
-        x = T.relu(self.bn1(self.fc1(state)))
-        x = T.relu(self.bn2(self.fc2(x)))
-        x = self.fc3(x)
-        return x
+        return self.network(state)
 
     def save_checkpoint(self):
         print('... saving checkpoint ...')
