@@ -4,12 +4,13 @@ import torch.nn as nn
 import torch.optim as optim
 import os
 
-    
+project_path= os.path.dirname(os.path.abspath(os.curdir))
 class CriticNetwork(nn.Module):
-    def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir='Data'):
+    def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir=project_path+'/Data'):
         super(CriticNetwork, self).__init__()
         if os.path.exists(chkpt_dir):
             self.checkpoint_file = os.path.join(chkpt_dir, 'Temp', 'critic_data', 'ddpg_'+name)
+            os.path.dirname(os.path.abspath('ActorCriticNetworks.py'))
         else:
             os.makedirs(os.path.join(chkpt_dir, 'Temp', 'critic_data'))
             self.checkpoint_file = os.path.join(chkpt_dir, 'Temp', 'critic_data', 'ddpg_'+name)
