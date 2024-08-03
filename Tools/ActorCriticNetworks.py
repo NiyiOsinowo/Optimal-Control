@@ -10,10 +10,10 @@ class CriticNetwork(nn.Module):
         super(CriticNetwork, self).__init__()
         if not os.path.exists(os.path.join(project_path, 'Data', 'Temp', 'critic_data')):
             os.makedirs(os.path.join(project_path, 'Data', 'Temp', 'critic_data'))
-            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'critic_data', 'ddpg_'+name)
+            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'critic_data', name)
         else:
             
-            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'critic_data', 'ddpg_'+name)
+            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'critic_data', name)
         layers = []
 
         current_input_size = state_size+ action_size
@@ -49,10 +49,10 @@ class ActorNetwork(nn.Module):
         super(ActorNetwork, self).__init__()
         if not os.path.exists(os.path.join(project_path, 'Data', 'Temp', 'actor_data')):
             os.makedirs(os.path.join(project_path, 'Data', 'Temp', 'actor_data'))
-            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'actor_data', 'ddpg_'+name)
+            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'actor_data', name)
         else:
             
-            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'actor_data', 'ddpg_'+name)
+            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'actor_data', name)
         layers = []
 
         current_input_size = state_size
@@ -81,3 +81,4 @@ class ActorNetwork(nn.Module):
     def load_checkpoint(self):
         print('... loading checkpoint ...')
         self.load_state_dict(T.load(self.checkpoint_file))
+print(os.path.exists(os.path.join(project_path, 'Data', 'Temp', 'actor_data')))
