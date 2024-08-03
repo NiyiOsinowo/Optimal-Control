@@ -2,7 +2,7 @@
 from dataclasses import *
 import numpy as np
 from abc import ABC, abstractmethod
-from typing import Callable, Any
+from typing import Callable, Any, Optional
 @dataclass(kw_only=True)
 class MDPEnvironment(ABC):  
 
@@ -56,7 +56,7 @@ class MDPController(ABC):
 @dataclass
 class LearningAgent(MDPController):
   environment: MDPEnvironment
-  policy: Callable
+  policy: Optional[Callable]
 
   def act(self, observation: np.ndarray)-> np.ndarray:
         pass

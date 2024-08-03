@@ -79,5 +79,8 @@ class ActorNetwork(nn.Module):
         T.save(self.network.state_dict(), self.checkpoint_file)
 
     def load_checkpoint(self):
-        print('... loading checkpoint ...')
-        self.network.load_state_dict(T.load(self.checkpoint_file))
+        if not os.path.exists(self.checkpoint_file):
+            print('Checkpoint file does not exist')
+        else:
+            print('... loading checkpoint ...')
+            self.network.load_state_dict(T.load(self.checkpoint_file))
