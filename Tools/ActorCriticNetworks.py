@@ -9,11 +9,10 @@ class CriticNetwork(nn.Module):
     def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir=project_path+'/Data'):
         super(CriticNetwork, self).__init__()
         if os.path.exists(chkpt_dir):
-            self.checkpoint_file = os.path.join(chkpt_dir, 'Temp', 'critic_data', 'ddpg_'+name)
-            os.path.dirname(os.path.abspath('ActorCriticNetworks.py'))
+            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'critic_data', 'ddpg_'+name)
         else:
-            os.makedirs(os.path.join(chkpt_dir, 'Temp', 'critic_data'))
-            self.checkpoint_file = os.path.join(chkpt_dir, 'Temp', 'critic_data', 'ddpg_'+name)
+            os.makedirs(os.path.join(project_path, 'Data', 'Temp', 'critic_data'))
+            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'critic_data', 'ddpg_'+name)
         layers = []
 
         current_input_size = state_size+ action_size
@@ -45,13 +44,13 @@ class CriticNetwork(nn.Module):
         self.network.load_state_dict(T.load(self.checkpoint_file))
  
 class ActorNetwork(nn.Module):
-    def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir='Data/Temp/critic_data'):
+    def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir=project_path+'/Data'):
         super(ActorNetwork, self).__init__()
         if os.path.exists(chkpt_dir):
-            self.checkpoint_file = os.path.join(chkpt_dir, 'Temp', 'actor_data', 'ddpg_'+name)
+            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'actor_data', 'ddpg_'+name)
         else:
-            os.makedirs(os.path.join(chkpt_dir, 'Temp', 'actor_data'))
-            self.checkpoint_file = os.path.join(chkpt_dir, 'Temp', 'actor_data', 'ddpg_'+name)
+            os.makedirs(os.path.join(project_path, 'Data', 'Temp', 'actor_data'))
+            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'actor_data', 'ddpg_'+name)
         layers = []
 
         current_input_size = state_size
