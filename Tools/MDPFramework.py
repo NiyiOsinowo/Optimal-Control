@@ -53,7 +53,7 @@ class MDPController(ABC):
   def observe(self)-> np.ndarray:
       ...
 
-@dataclass
+@dataclass(kw_only=True)
 class LearningAgent(MDPController):
   environment: MDPEnvironment
   policy: Optional[Callable]
