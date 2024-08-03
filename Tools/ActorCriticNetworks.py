@@ -80,5 +80,4 @@ class ActorNetwork(nn.Module):
 
     def load_checkpoint(self):
         print('... loading checkpoint ...')
-        self.load_state_dict(T.load(self.checkpoint_file))
-print(os.path.exists(os.path.join(project_path, 'Data', 'Temp', 'actor_data')))
+        self.network.load_state_dict(T.load(self.checkpoint_file))
