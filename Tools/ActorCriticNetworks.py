@@ -8,7 +8,7 @@ project_path= os.path.dirname(os.path.abspath(os.curdir))
 class CriticNetwork(nn.Module):
     def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir=project_path+'/Data'):
         super(CriticNetwork, self).__init__()
-        if os.path.exists(chkpt_dir):
+        if os.path.exists(os.path.join(project_path, 'Data', 'Temp', 'critic_data')):
             self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'critic_data', 'ddpg_'+name)
         else:
             os.makedirs(os.path.join(project_path, 'Data', 'Temp', 'critic_data'))
@@ -46,7 +46,7 @@ class CriticNetwork(nn.Module):
 class ActorNetwork(nn.Module):
     def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir=project_path+'/Data'):
         super(ActorNetwork, self).__init__()
-        if os.path.exists(chkpt_dir):
+        if os.path.exists(os.path.join(project_path, 'Data', 'Temp', 'actor_data')):
             self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'actor_data', 'ddpg_'+name)
         else:
             os.makedirs(os.path.join(project_path, 'Data', 'Temp', 'actor_data'))
