@@ -47,10 +47,11 @@ class CriticNetwork(nn.Module):
 class ActorNetwork(nn.Module):
     def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir=project_path+'/Data'):
         super(ActorNetwork, self).__init__()
-        if os.path.exists(os.path.join(project_path, 'Data', 'Temp', 'actor_data')):
+        if not os.path.exists(os.path.join(project_path, 'Data', 'Temp', 'actor_data')):
+            os.makedirs(os.path.join(project_path, 'Data', 'Temp', 'actor_data'))
             self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'actor_data', 'ddpg_'+name)
         else:
-            os.makedirs(os.path.join(project_path, 'Data', 'Temp', 'actor_data'))
+            
             self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'actor_data', 'ddpg_'+name)
         layers = []
 
