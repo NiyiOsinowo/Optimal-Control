@@ -6,7 +6,7 @@ import os
 
     
 class CriticNetwork(nn.Module):
-    def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir='tmp/critic_data'):
+    def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir='Data/Temp/critic_data'):
         super(CriticNetwork, self).__init__() 
         self.checkpoint_file = os.path.join(chkpt_dir,name+'_ddpg')
         layers = []
