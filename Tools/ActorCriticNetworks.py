@@ -7,8 +7,12 @@ import os
     
 class CriticNetwork(nn.Module):
     def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir='Data/Temp/critic_data'):
-        super(CriticNetwork, self).__init__() 
-        self.checkpoint_file = os.path.join(chkpt_dir,name+'_ddpg')
+        super(CriticNetwork, self).__init__()
+        if os.path.exists(chkpt_dir):
+            self.checkpoint_file = os.path.join(chkpt_dir,'ddpg_'+name)
+        else:
+            os.makedirs(chkpt_dir)
+            self.checkpoint_file = os.path.join(chkpt_dir,'ddpg_'+name)
         layers = []
 
         current_input_size = state_size+ action_size
@@ -40,9 +44,13 @@ class CriticNetwork(nn.Module):
         self.network.load_state_dict(T.load(self.checkpoint_file))
  
 class ActorNetwork(nn.Module):
-    def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir='tmp/actor_data'):
+    def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir='Data/Temp/critic_data'):
         super(ActorNetwork, self).__init__()
-        self.checkpoint_file = os.path.join(chkpt_dir,name+'_ddpg')
+        if os.path.exists(chkpt_dir):
+            self.checkpoint_file = os.path.join(chkpt_dir,'ddpg_'+name)
+        else:
+            os.makedirs(chkpt_dir)
+            self.checkpoint_file = os.path.join(chkpt_dir,'ddpg_'+name)
         layers = []
 
         current_input_size = state_size
