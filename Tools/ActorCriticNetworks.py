@@ -3,8 +3,11 @@ import torch as T
 import torch.nn as nn
 import torch.optim as optim
 import os
-
+import sys
+sys.path.insert(0, '/Users/niyi/Documents/GitHub/Optimal-Control/Tools')
+from EnforceTyping import EnforceClassTyping
 project_path= os.path.dirname(os.path.abspath(os.curdir))
+
 class CriticNetwork(nn.Module):
     def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir=project_path+'/Data'):
         super(CriticNetwork, self).__init__()
@@ -62,7 +65,7 @@ class ActorNetwork(nn.Module):
             layers.append(nn.LayerNorm(hidden_layer_size))
             layers.append(layer_activation_func)
             current_input_size = hidden_layer_size
-        
+            
         layers.append(T.nn.utils.parametrizations.weight_norm(nn.Linear(current_input_size, action_size)))
 
         self.network = nn.Sequential(*layers)
