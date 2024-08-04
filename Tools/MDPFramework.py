@@ -56,7 +56,7 @@ class MDPController(ABC):
 @dataclass(kw_only=True)
 class LearningAgent(MDPController):
   environment: MDPEnvironment
-  policy: Optional[Callable]
+  policy: Callable
 
   def act(self, observation: np.ndarray)-> np.ndarray:
         pass
