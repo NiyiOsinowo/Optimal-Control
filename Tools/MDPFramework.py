@@ -34,10 +34,6 @@ class MDPEnvironment(ABC):
       ...
 
   @abstractmethod
-  def trajectory_value(self, trajectory: list[State])-> float:
-      ...
-
-  @abstractmethod
   def reset(self):
       ...
 
