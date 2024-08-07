@@ -5,7 +5,7 @@ import torch.optim as optim
 import os
 import sys
 sys.path.insert(0, '/Users/niyi/Documents/GitHub/Optimal-Control/Tools')
-from EnforceTyping import EnforceClassTyping
+from EnforceTyping import enforce_method_typing
 project_path= os.path.dirname(os.path.abspath(os.curdir))
 
 class CriticNetwork(nn.Module):
@@ -34,7 +34,7 @@ class CriticNetwork(nn.Module):
 
         self.device = T.device('cuda:0' if T.cuda.is_available() else 'cpu')
         self.to(self.device)
-
+    @enforce_method_typing
     def forward(self, state, action):
         x = T.cat([state, action], dim=-1)
         return self.network(x)
@@ -44,8 +44,11 @@ class CriticNetwork(nn.Module):
         T.save(self.network.state_dict(), self.checkpoint_file)
 
     def load_checkpoint(self):
-        print('... loading checkpoint ...')
-        self.network.load_state_dict(T.load(self.checkpoint_file))
+        if not os.path.exists(self.checkpoint_file):
+            print('Checkpoint file does not exist')
+        else:
+            print('... loading checkpoint ...')
+            self.network.load_state_dict(T.load(self.checkpoint_file))
  
 class ActorNetwork(nn.Module):
     def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, chkpt_dir=project_path+'/Data'):
@@ -74,7 +77,8 @@ class ActorNetwork(nn.Module):
         self.device = T.device('cuda:0' if T.cuda.is_available() else 'cpu')
         self.to(self.device)
 
-    def forward(self, state):
+    @enforce_method_typing
+    def forward(self, state: T.Tensor):
         return self.network(state)
 
     def save_checkpoint(self):
