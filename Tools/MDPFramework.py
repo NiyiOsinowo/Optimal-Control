@@ -3,6 +3,7 @@ from dataclasses import *
 import numpy as np
 from abc import ABC, abstractmethod
 from typing import Callable, Any, Optional
+from EnforceTyping import EnforceClassTyping
 @dataclass(kw_only=True)
 class MDPEnvironment(ABC):  
 
@@ -50,13 +51,8 @@ class MDPController(ABC):
       ...
 
 @dataclass(kw_only=True)
-class LearningAgent(MDPController):
-  environment: MDPEnvironment
-  policy: Callable
+class LearningAgent(EnforceClassTyping, MDPController):
 
-  def act(self, observation: np.ndarray)-> np.ndarray:
-        pass
-  def observe(self)-> np.ndarray:
-        pass
   def learn(self):
+        # function to update the policy to improve performance
         pass
