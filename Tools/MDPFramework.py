@@ -6,7 +6,9 @@ from typing import Callable, Any, Optional
 from EnforceTyping import EnforceClassTyping
 @dataclass(kw_only=True)
 class MDPEnvironment(ABC):  
-
+  """Abstract base class for MDP environments."""
+  state_dims: tuple
+  action_dims: tuple
   class State:
       pass
   
@@ -41,7 +43,7 @@ class MDPEnvironment(ABC):
 @dataclass(kw_only=True)
 class MDPController(ABC):
   environment: MDPEnvironment
-  policy: Callable
+  policy: Callable= None
 
   @abstractmethod
   def act(self, observation: np.ndarray)-> np.ndarray:
