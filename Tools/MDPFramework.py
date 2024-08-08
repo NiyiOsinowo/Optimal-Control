@@ -4,9 +4,10 @@ import numpy as np
 from abc import ABC, abstractmethod
 from typing import Callable, Any, Optional
 from EnforceTyping import EnforceClassTyping
+
 @dataclass(kw_only=True)
 class MDPEnvironment(ABC):  
-  """Abstract base class for MDP environments."""
+  """Template for MDP environments."""
   state_dims: tuple
   action_dims: tuple
   class State:
@@ -16,11 +17,11 @@ class MDPEnvironment(ABC):
   current_state: State 
 
   @abstractmethod
-  def transition_model(self, state: State, action: Any)-> State:
+  def transition_model(self, state: State, action: np.ndarray)-> State:
       ...
 
   @abstractmethod
-  def reward_model(self, state: State, action: Any, next_state: State, terminal_signal: bool)-> float:
+  def reward_model(self, state: State, action: np.ndarray, next_state: State, terminal_signal: bool)-> float:
       '''This is a scalar performance metric.'''
       ...
 
@@ -29,7 +30,7 @@ class MDPEnvironment(ABC):
       ...
 
   @abstractmethod
-  def transition_step(self, state: State, action: Any)-> tuple[float, State, bool]:
+  def transition_step(self, state: State, action: np.ndarray)-> tuple[State, float, bool]:
       ...
 
   @abstractmethod
