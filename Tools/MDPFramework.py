@@ -43,7 +43,7 @@ class MDPEnvironment(ABC):
 @dataclass(kw_only=True)
 class MDPController(ABC):
   environment: MDPEnvironment
-  policy: Callable= None
+  policy: Callable
 
   @abstractmethod
   def act(self, observation: np.ndarray)-> np.ndarray:
@@ -53,8 +53,8 @@ class MDPController(ABC):
       ...
 
 @dataclass(kw_only=True)
-class LearningAgent(EnforceClassTyping, MDPController):
-
+class LearningAgent(MDPController):
+  
   def learn(self):
         # function to update the policy to improve performance
-        pass
+        NotImplementedError ("Subclasses must implement this method")
