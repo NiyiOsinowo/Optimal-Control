@@ -54,7 +54,7 @@ class MDPController(ABC):
       ...
 
 @dataclass(kw_only=True)
-class LearningAgent(MDPController):
+class LearningAgent(MDPController, EnforceClassTyping):
   
   def learn(self):
         # function to update the policy to improve performance

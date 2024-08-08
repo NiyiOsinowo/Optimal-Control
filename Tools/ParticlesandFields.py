@@ -7,6 +7,7 @@ from EnforceTyping import EnforceClassTyping
 @dataclass
 class Field(ABC):
   dimensionality: tuple 
+  
   @abstractmethod
   def dynamics(self, observation_position: np.ndarray)-> np.ndarray:
     # A function that returns the field vector at a given position and/or time 
