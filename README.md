@@ -2,13 +2,9 @@
 
 The aim of this project is to explore and compare the different methods of solving optimal control problems.
 
-- Benoit C. CHACHUAT, "Nonlinear and Dynamic Optimization: From Theory to Practice," 
-Department of Chemical Engineering, McMaster University, 2009.
-
-The UAV scenario given the paper is shown below.
-
-<img src="https://github.com/cfoh/UAV-Trajectory-Optimization/assets/51439829/27486986-bcb9-47e0-8e8a-8cc2f810f53a" 
-  width="400" height="450">
+This project will focus on apply different optimal control methods on different types of systems with the goal.
+The optimal control methods implemented in this projects are categorised based on how much information about the system we have as Planning Methods, Model-Based Learning, and Model-Free Learning.
+The systems modelled in this project are categorised based on how much information about the system we have as Deterministic systems, and Stochastic Systems.
 
 We have modified a certain bit in the environment.
 
