@@ -1,5 +1,7 @@
 {
     "python.analysis.extraPaths": [
-        "./Tools"
+        "./Tools",
+        "./Code/Systems",
+        "./Code/Optimal Control Methods/Learning Methods/Model Free RL"
     ]
 }
