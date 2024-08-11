@@ -6,15 +6,11 @@ This project will focus on apply different optimal control methods on different 
 The optimal control methods implemented in this projects are categorised based on how much information about the system we have as Planning Methods, Model-Based Learning, and Model-Free Learning.
 The systems modelled in this project are categorised based on how much information about the system we have as Deterministic systems, and Stochastic Systems.
 
-We have modified a certain bit in the environment.
-
-<img width="766" alt="Screenshot 2024-07-30 at 15 57 31" src="https://github.com/user-attachments/assets/ace1325a-b83d-4898-953a-b486b2b91c96">
-
 - 
 
 ## The Objective
 
-The objective of the design is to propose a learning algorithm such that 
+The objective of this project is to find the most effective optimal control method for each system 
 
 - 
 
