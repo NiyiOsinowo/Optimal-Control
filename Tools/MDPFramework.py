@@ -5,6 +5,16 @@ from abc import ABC, abstractmethod
 from typing import Callable, Any, Optional
 from EnforceTyping import EnforceClassTyping
 
+
+class OptimizationEnvironment(ABC):
+
+    @abstractmethod
+    def objective(self)-> float:
+        pass
+    @abstractmethod
+    def dynamics_constraint(self):
+        pass
+
 @dataclass(kw_only=True)
 class MDPEnvironment(ABC):  
   """Template for MDP environments."""
