@@ -10,21 +10,16 @@ We have modified a certain bit in the environment.
 
 <img width="766" alt="Screenshot 2024-07-30 at 15 57 31" src="https://github.com/user-attachments/assets/ace1325a-b83d-4898-953a-b486b2b91c96">
 
-## The Settings
-
-The settings of the scenario are:
 - 
 
 ## The Objective
 
 The objective of the design is to propose a learning algorithm such that 
-
-After sufficient training on the algorithms, the authors observe that:
 - 
 
 ## The Code
 
-The code is tested with `Python 3.11.9` with the following packages:
+The code is tested with `Python 3.12.1` with the following packages:
 ```
 Package    Version
 ---------- -------
