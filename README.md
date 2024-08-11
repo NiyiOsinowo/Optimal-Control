@@ -15,6 +15,7 @@ We have modified a certain bit in the environment.
 ## The Objective
 
 The objective of the design is to propose a learning algorithm such that 
+
 - 
 
 ## The Code
