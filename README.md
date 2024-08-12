@@ -19,13 +19,7 @@ The code is tested with `Python 3.12.1` with the following packages:
 ```
 Package    Version
 ---------- -------
-keras      3.3.3
 numpy      1.26.4
 pip        24.0
-pygame     2.5.2
-setuptools 65.5.0
-shapely    2.0.4
-pandas     2.2.2
-pillow     10.3.0
 torch      2.3.1
 ```
