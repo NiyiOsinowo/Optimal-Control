@@ -54,7 +54,10 @@ class MDPEnvironment(ABC):
 @dataclass(kw_only=True)
 class MDPController(ABC):
   environment: MDPEnvironment
-  policy: Callable
+  @property
+  @abstractmethod
+  def policy(self):
+      pass
 
   @abstractmethod
   def act(self, observation: np.ndarray)-> np.ndarray:
