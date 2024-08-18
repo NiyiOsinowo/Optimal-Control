@@ -4,10 +4,8 @@ import numpy as np
 from dataclasses import *
 import torch as T
 import torch.nn as nn
-import scipy.integrate as integrate
-from typing import Any, Callable, Dict, List, Tuple, Union, Optional
 import random
-from collections import deque, namedtuple
+from collections import deque
 import sys
 sys.path.insert(0, '/Users/niyi/Documents/GitHub/Optimal-Control/Tools')
 from OUNoise import OUNoise
@@ -16,8 +14,8 @@ from MDPFramework import MDPEnvironment,  LearningAgent
 from ActorCriticNetworks import ActorNetwork, CriticNetwork
 T.Tensor.ndim = property(lambda self: len(self.shape))
 
-@dataclass
-class DDPGAgent(LearningAgent):
+@dataclass(kw_only=True)
+class DDPGAgent(EnforceClassTyping, LearningAgent):
 
     def __init__(self, 
                  environment: MDPEnvironment, 
@@ -58,12 +56,14 @@ class DDPGAgent(LearningAgent):
     def policy(self):
         return self.actor
 
+    @enforce_method_typing
     def observe(self, state= None)-> T.Tensor:
         if state is None:
           state= self.environment.current_state   
         observation= T.Tensor(state.vector())
         return observation
-  
+
+    @enforce_method_typing
     def act(self, observation: T.Tensor, with_noise: bool= True):
         self.actor.eval()
         observation = observation.to(self.actor.device)
@@ -74,7 +74,8 @@ class DDPGAgent(LearningAgent):
             return noisy_action.cpu().detach()
         else:
             return action.cpu().detach()
-     
+
+    @enforce_method_typing 
     def learn(self):
         if len(self.memory) < self.batch_size:
             return
@@ -117,6 +118,7 @@ class DDPGAgent(LearningAgent):
 
         self.update_network_parameters()
 
+    @enforce_method_typing
     def sample_path(self, runtime: float, n_steps: int=100):
         route= []
         route_return= 0.0
@@ -131,10 +133,10 @@ class DDPGAgent(LearningAgent):
             route_return += reward
         return route, route_return
     
+    @enforce_method_typing
     def plot_path(self, path, runtime: float):
         Path= T.stack(Path)
         Path= Path.transpose(dim0=0, dim1=1)
-        # print(Path)
         t=  T.arange(0, RunDuration)
         plt.plot(Path[0], Path[1])
         plt.plot(Path[0][0], Path[1][0], 'ko')
