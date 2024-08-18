@@ -36,10 +36,12 @@ class MDPEnvironment(ABC):
   def sample_trajectory(self, runtime: float)-> list[State]:
       ...
 
-  @abstractmethod
-  def reset(self):
-      ...
-
+  def reset(self) -> None:
+      """
+      Resets the current state to the initial state and sets the current time to 0.0.
+      """
+      self.current_state = self.initial_state
+      self.current_time = 0.0
 @dataclass(kw_only=True)
 class MDPController(ABC):
   environment: MDPEnvironment

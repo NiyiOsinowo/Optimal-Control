@@ -4,6 +4,7 @@ import numpy as np
 from dataclasses import *
 import torch as T
 import torch.nn as nn
+from typing import List
 import random
 from collections import deque
 import sys
@@ -15,7 +16,7 @@ from ActorCriticNetworks import ActorNetwork, CriticNetwork
 T.Tensor.ndim = property(lambda self: len(self.shape))
 
 @dataclass(kw_only=True)
-class DDPGAgent(EnforceClassTyping, LearningAgent):
+class DDPGAgent(LearningAgent, EnforceClassTyping):
 
     def __init__(self, 
                  environment: MDPEnvironment, 
@@ -29,7 +30,7 @@ class DDPGAgent(EnforceClassTyping, LearningAgent):
                  critic_learning_rate: float,
                  soft_update_rate: float,
                  control_interval: float = 0.5,
-                 control_magnitude: float= 1e-7,
+                 control_magnitude: float= 1e-11,
                  discount_rate: float =0.99,
                  max_size: int= 1000,
                  batch_size: int= 6):
@@ -56,7 +57,6 @@ class DDPGAgent(EnforceClassTyping, LearningAgent):
     def policy(self):
         return self.actor
 
-    @enforce_method_typing
     def observe(self, state= None)-> T.Tensor:
         if state is None:
           state= self.environment.current_state   
@@ -119,31 +119,33 @@ class DDPGAgent(EnforceClassTyping, LearningAgent):
         self.update_network_parameters()
 
     @enforce_method_typing
-    def sample_path(self, runtime: float, n_steps: int=100):
-        route= []
-        route_return= 0.0
+    def sample_trajectory(self, runtime: float, n_steps: int=100):
+        trajectory= []
+        trajectory_return= 0.0
         state= self.environment.initial_state
         initial_time= 0.0
         time_points = np.linspace(initial_time, runtime, n_steps)
         for _ in time_points:
             observation= self.observe(state)
-            route.append(observation)
+            trajectory.append(observation)
             action= self.act(observation)
-            state, reward, _= self.environment.transition_step(state, action)
-            route_return += reward
-        return route, route_return
+            state, reward, _= self.environment.transition_step(state, np.array(action))
+            trajectory_return += reward
+        return trajectory, trajectory_return
     
     @enforce_method_typing
-    def plot_path(self, path, runtime: float):
-        Path= T.stack(Path)
-        Path= Path.transpose(dim0=0, dim1=1)
-        t=  T.arange(0, RunDuration)
-        plt.plot(Path[0], Path[1])
-        plt.plot(Path[0][0], Path[1][0], 'ko')
-        plt.plot(Path[0][-1], Path[1][-1], 'r*')
-        plt.xlim(-10,10)
-        plt.ylim(-10,10)
+    def plot_trajectory(self, trajectory: list):
+        trajectory= T.stack(trajectory)
+        trajectory= trajectory.transpose(dim0=0, dim1=1)
+        px, py, vx, vy= trajectory
+        plt.figure(figsize=(8, 8))
+        plt.plot(px, py, label='Trajectory')
+        plt.scatter(px[0], py[0], c='k', marker='o', label='Start')
+        plt.scatter(px[-1], py[-1], c='r', marker='*', label='End')
+        plt.xlim(-2*max(abs(px)), 2*max(abs(px)))
+        plt.ylim(-2*max(abs(py)), 2*max(abs(py)))
         plt.grid(True)
+        plt.legend()
         plt.show()
     
     def update_network_parameters(self, SoftUpdateRate=1):

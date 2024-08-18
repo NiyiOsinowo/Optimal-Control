@@ -253,7 +253,6 @@ class ParticleInField(MDPEnvironment):
       plt.plot(positions[:, 0], positions[:, 1], label='Trajectory')
       plt.scatter(positions[0, 0], positions[0, 1], c='k', marker='o', label='Start')
       plt.scatter(positions[-1, 0], positions[-1, 1], c='r', marker='*', label='End')
-
       plt.xlim(-10, 10)
       plt.ylim(-10, 10)
       plt.grid(True)
@@ -278,9 +277,3 @@ class ParticleInField(MDPEnvironment):
       velocity = np.zeros_like(position)
       return self.State(position, velocity)
 
-  def reset(self) -> None:
-      """
-      Resets the current state to the initial state and sets the current time to 0.0.
-      """
-      self.current_state = self.initial_state
-      self.current_time = 0.0
