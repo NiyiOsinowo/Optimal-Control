@@ -117,7 +117,7 @@ class DDPGAgent(LearningAgent):
 
         self.update_network_parameters()
 
-    def sample_route(self, runtime: float, n_steps: int=100):
+    def sample_path(self, runtime: float, n_steps: int=100):
         route= []
         route_return= 0.0
         state= self.environment.initial_state
@@ -131,8 +131,7 @@ class DDPGAgent(LearningAgent):
             route_return += reward
         return route, route_return
     
-    def plot_route(self, RunDuration: float):
-        Path= self.Run(RunDuration)
+    def plot_path(self, path, runtime: float):
         Path= T.stack(Path)
         Path= Path.transpose(dim0=0, dim1=1)
         # print(Path)
