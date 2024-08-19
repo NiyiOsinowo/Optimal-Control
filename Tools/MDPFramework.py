@@ -42,9 +42,11 @@ class MDPEnvironment(ABC):
       """
       self.current_state = self.initial_state
       self.current_time = 0.0
+
 @dataclass(kw_only=True)
 class MDPController(ABC):
   environment: MDPEnvironment
+
   @property
   @abstractmethod
   def policy(self):
@@ -53,6 +55,7 @@ class MDPController(ABC):
   @abstractmethod
   def act(self, observation: np.ndarray)-> np.ndarray:
       ...
+  
   @abstractmethod
   def observe(self)-> np.ndarray:
       ...

@@ -90,6 +90,7 @@ class ParticleInField(MDPEnvironment):
   current_state: State = None
 
   def __post_init__(self):
+    assert self.target.shape == self.field.dimensionality, "The target has wrong dimensions"
     if self.initial_state is None:
         self.initial_state= self.random_state()
     self.current_state= self.initial_state
@@ -97,7 +98,7 @@ class ParticleInField(MDPEnvironment):
     self.state_dims= self.field.dimensionality * 2
 
   @enforce_method_typing
-  def state_dynamics(self, state: np.ndarray, time: float, control_force: np.ndarray):
+  def state_dynamics(self, state: np.ndarray, time: float, control: np.ndarray):
     """
     Compute the dynamics of the particle's state.
 
@@ -110,11 +111,11 @@ class ParticleInField(MDPEnvironment):
     np.ndarray: The derivative of the state [vx, vy, ax, ay].
     """
     velocity = state[2:]
-    acceleration = (self.particle.charge * self.field.dynamics(state[:2]) + control_force) / self.particle.mass
+    acceleration = (self.particle.charge * self.field.dynamics(state[:2]) + control) / self.particle.mass
     return np.concatenate((velocity, acceleration))
   
   @enforce_method_typing
-  def transition_model(self, state: State, action: np.ndarray= np.array([0.0, 0.0]), time_interval:float= 0.1)-> State:
+  def transition_model(self, state: State, control: np.ndarray= np.array([0.0, 0.0]), time_interval:float= 0.1)-> State:
     """
     Computes the next state of the system after applying a constant force for a given time interval.
 
@@ -126,56 +127,56 @@ class ParticleInField(MDPEnvironment):
     Returns:
         State: The next state of the system.
     """
-    t_span = [self.current_time, self.current_time + time_interval]
-    next_state_vector = integrate.odeint(self.state_dynamics, state.vector(), t_span, args=(action,))[-1]
+    time_span = [self.current_time, self.current_time + time_interval]
+    next_state_vector = integrate.odeint(self.state_dynamics, state.vector(), time_span, args=(control,))[-1]
     next_position = next_state_vector[:2]
     next_velocity = next_state_vector[2:]
     return self.State(next_position, next_velocity)
   
   @enforce_method_typing
-  def reward_model(self, state: State, action: np.ndarray, next_state: State, terminal_signal: bool) -> float:
-      """
-      Computes the reward for the agent given a state transition.
+  def reward_model(self, state: State, control: np.ndarray, next_state: State, terminal_signal: bool) -> float:
+    """
+    Computes the reward for the agent given a state transition.
 
-      The reward is a weighted sum of three components:
-      1. Distance gained towards the target
-      2. Energy consumed during the transition
-      3. Terminal signal (e.g. reaching the target or running out of energy)
+    The reward is a weighted sum of three components:
+    1. Distance gained towards the target
+    2. Energy consumed during the transition
+    3. Terminal signal (e.g. reaching the target or running out of energy)
 
-      Args:
-          state: The current state of the agent
-          action: The action taken by the agent
-          next_state: The resulting state after taking the action
-          terminal_signal: A boolean indicating whether the episode has terminated
+    Args:
+        state: The current state of the agent
+        action: The action taken by the agent
+        next_state: The resulting state after taking the action
+        terminal_signal: A boolean indicating whether the episode has terminated
 
-      Returns:
-          float: The reward value
-      """
-      distance_gained = np.linalg.norm(state.position - self.target) - np.linalg.norm(next_state.position - self.target)
-      energy_consumed = np.linalg.norm(action)
-      reward = (
-          self.proximity_weight * distance_gained
-          + self.energy_weight * energy_consumed
-          + self.terminal_signal_weight * int(terminal_signal)
-      )
-      return reward
+    Returns:
+        float: The reward value
+    """
+    distance_gained = np.linalg.norm(state.position - self.target) - np.linalg.norm(next_state.position - self.target)
+    energy_consumed = np.linalg.norm(control)
+    reward = (
+        self.proximity_weight * distance_gained
+        + self.energy_weight * energy_consumed
+        + self.terminal_signal_weight * int(terminal_signal)
+    )
+    return reward
   
   @enforce_method_typing
   def is_terminal_condition(self, state: State) -> bool:
-      """
-      Checks if the state is outside the viable learning region of the environment.
+    """
+    Checks if the state is outside the viable learning region of the environment.
 
-      Args:
-          state (State): The current state of the environment.
+    Args:
+        state (State): The current state of the environment.
 
-      Returns:
-          bool: True if the state is outside the viable learning region, False otherwise.
-      """
-      x_bound = -10.0 <= state.position[0] <= 10.0
-      y_bound = -10.0 <= state.position[1] <= 10.0
-      velocity_bound = np.linalg.norm(state.velocity) < 10.0
+    Returns:
+        bool: True if the state is outside the viable learning region, False otherwise.
+    """
+    x_bound = -10.0 <= state.position[0] <= 10.0
+    y_bound = -10.0 <= state.position[1] <= 10.0
+    velocity_bound = np.linalg.norm(state.velocity) < 10.0
 
-      return not (x_bound and y_bound and velocity_bound)
+    return not (x_bound and y_bound and velocity_bound)
   
   @enforce_method_typing
   def transition_step(
