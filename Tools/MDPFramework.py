@@ -1,4 +1,3 @@
-'''This repository contains a detailed implementation of the MDP Framework class'''
 from dataclasses import *
 import numpy as np
 from abc import ABC, abstractmethod
@@ -64,5 +63,5 @@ class MDPController(ABC):
 class LearningAgent(MDPController, EnforceClassTyping):
   
   def learn(self):
-        # function to update the policy to improve performance
-        NotImplementedError ("Subclasses must implement this method")
+    # function to update the policy to improve performance
+    NotImplementedError ("Subclasses must implement this method")
