@@ -6,6 +6,7 @@ from EnforceTyping import EnforceClassTyping
 @dataclass(kw_only=True)
 class MDPEnvironment(ABC):  
   """Template for MDP environments."""
+  
   class State:
       pass
   
