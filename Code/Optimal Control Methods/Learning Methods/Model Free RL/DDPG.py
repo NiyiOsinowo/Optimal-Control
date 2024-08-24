@@ -7,6 +7,7 @@ import torch.nn as nn
 from typing import List
 import random
 from collections import deque
+import os
 import sys
 sys.path.insert(0, '/Users/niyi/Documents/GitHub/Optimal-Control/Tools')
 from OUNoise import OUNoise
@@ -15,6 +16,7 @@ from MDPFramework import MDPEnvironment,  LearningAgent
 from ActorCriticNetworks import ActorNetwork, CriticNetwork
 T.Tensor.ndim = property(lambda self: len(self.shape))
 
+project_path= os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(os.curdir))))
 @dataclass(kw_only=True)
 class DDPGAgent(LearningAgent, EnforceClassTyping):
 
@@ -35,10 +37,10 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
                  max_size: int= 1000,
                  batch_size: int= 6):
         self.environment= environment
-        self.actor = ActorNetwork(observation_size, action_size, actor_layers, actor_activations, 'DDPGMainActor', actor_learning_rate)
-        self.critic = CriticNetwork(observation_size, action_size, critic_layers, critic_activations, 'DDPGMainCritic', critic_learning_rate)
-        self.target_actor = ActorNetwork(observation_size, action_size, actor_layers, actor_activations, 'DDPGTargetActor', actor_learning_rate)
-        self.target_critic = CriticNetwork(observation_size, action_size, critic_layers, critic_activations, 'DDPGTargetCritic', critic_learning_rate)
+        self.actor = ActorNetwork(observation_size, action_size, actor_layers, actor_activations, 'DDPGMainActor', actor_learning_rate, project_path)
+        self.critic = CriticNetwork(observation_size, action_size, critic_layers, critic_activations, 'DDPGMainCritic', critic_learning_rate, project_path)
+        self.target_actor = ActorNetwork(observation_size, action_size, actor_layers, actor_activations, 'DDPGTargetActor', actor_learning_rate, project_path)
+        self.target_critic = CriticNetwork(observation_size, action_size, critic_layers, critic_activations, 'DDPGTargetCritic', critic_learning_rate, project_path)
         for target_param, param in zip(self.target_actor.parameters(), self.actor.parameters()):
             target_param.data.copy_(param.data)
         for target_param, param in zip(self.target_critic.parameters(), self.critic.parameters()):
@@ -195,6 +197,10 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
  
 @enforce_function_typing
 def DDPGAlgorithm(environment: MDPEnvironment, agent: DDPGAgent, n_episodes: int, episode_duration: int):
+    agent.critic.load_checkpoint()
+    agent.actor.load_checkpoint()
+    agent.target_critic.load_checkpoint()
+    agent.target_actor.load_checkpoint()
     return_history = []
     for _ in range(n_episodes):
         environment.reset()
@@ -210,5 +216,9 @@ def DDPGAlgorithm(environment: MDPEnvironment, agent: DDPGAgent, n_episodes: int
             environment.current_state = new_state
         return_history.append(episode_return)
     plt.plot(return_history)
+    agent.critic.save_checkpoint()
+    agent.actor.save_checkpoint()
+    agent.target_critic.save_checkpoint()
+    agent.target_actor.save_checkpoint()
     return return_history
     
