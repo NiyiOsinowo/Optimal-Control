@@ -197,10 +197,6 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
  
 @enforce_function_typing
 def DDPGAlgorithm(environment: MDPEnvironment, agent: DDPGAgent, n_episodes: int, episode_duration: int):
-    agent.critic.load_checkpoint()
-    agent.actor.load_checkpoint()
-    agent.target_critic.load_checkpoint()
-    agent.target_actor.load_checkpoint()
     return_history = []
     for _ in range(n_episodes):
         environment.reset()
