@@ -115,7 +115,7 @@ class ParticleInField(MDPEnvironment):
     return np.concatenate((velocity, acceleration))
   
   @enforce_method_typing
-  def transition_model(self, state: State, control: np.ndarray= np.array([0.0, 0.0]), time_interval:float= 0.1)-> State:
+  def state_transition_model(self, state: State, control: np.ndarray= np.array([0.0, 0.0]), time_interval:float= 0.1)-> State:
     """
     Computes the next state of the system after applying a constant force for a given time interval.
 
@@ -196,7 +196,7 @@ class ParticleInField(MDPEnvironment):
       Returns:
           Tuple[State, float, bool]: A tuple containing the next state, the reward, and a terminal signal.
       """
-      next_state = self.transition_model(state, action, time_interval=time_interval)
+      next_state = self.state_transition_model(state, action, time_interval=time_interval)
       terminal_signal = self.is_terminal_condition(next_state)
       reward = self.reward_model(state, action, next_state, terminal_signal)
       return next_state, reward, terminal_signal

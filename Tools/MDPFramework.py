@@ -14,7 +14,7 @@ class MDPEnvironment(ABC):
   current_state: State 
 
   @abstractmethod
-  def transition_model(self, state: State, action: np.ndarray):
+  def state_transition_model(self, state: State, action: np.ndarray):
       ...
 
   @abstractmethod
