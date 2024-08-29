@@ -3,8 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from dataclasses import *
 import torch as T
-import torch.nn as nn
-from typing import List
+import torch.nn as nn 
 import random
 from collections import deque
 import os
