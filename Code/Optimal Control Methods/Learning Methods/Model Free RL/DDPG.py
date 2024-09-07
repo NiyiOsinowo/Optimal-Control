@@ -200,11 +200,12 @@ def DDPGAlgorithm(environment: MDPEnvironment, agent: DDPGAgent, n_episodes: int
     for _ in range(n_episodes):
         environment.reset()
         terminal_signal = False
-        episode_return = 0
+        episode_return = 0.0
         for _ in range(episode_duration):
-            observation= agent.observe()
+            current_state= environment.current_state
+            observation= agent.observe(current_state)
             action = agent.act(observation) 
-            new_state, reward, terminal_signal= environment.transition_step(environment.current_state, np.array(action), agent.control_interval) 
+            new_state, reward, terminal_signal= environment.transition_step(current_state, np.array(action), agent.control_interval) 
             agent.memory.append((observation, action, agent.observe(new_state), reward, int(terminal_signal)))
             agent.learn()
             episode_return += reward
