@@ -23,3 +23,5 @@ numpy      1.26.4
 pip        24.0
 torch      2.3.1
 ```
+## References
+https://arxiv.org/pdf/2006.16712
