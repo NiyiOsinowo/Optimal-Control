@@ -10,7 +10,7 @@ The systems modelled in this project are categorised based on how much informati
 
 ## The Objective
 
-The objective of this project is to find the most effective optimal control method for each system 
+The objective of this project is to determine the most effective optimal control method for each system 
 
 
 ## The Code
@@ -23,3 +23,5 @@ numpy      1.26.4
 pip        24.0
 torch      2.3.1
 ```
+## References
+Model-based Reinforcement Learning: A Survey.(https://arxiv.org/pdf/2006.16712)
