@@ -10,7 +10,7 @@ The systems modelled in this project are categorised based on how much informati
 
 ## The Objective
 
-The objective of this project is to find the most effective optimal control method for each system 
+The objective of this project is to determine the most effective optimal control method for each system 
 
 
 ## The Code
