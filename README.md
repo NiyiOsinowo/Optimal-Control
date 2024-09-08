@@ -24,4 +24,4 @@ pip        24.0
 torch      2.3.1
 ```
 ## References
-https://arxiv.org/pdf/2006.16712
+Model-based Reinforcement Learning: A Survey.(https://arxiv.org/pdf/2006.16712)
