@@ -6,7 +6,42 @@ This project will focus on apply different optimal control methods on different 
 The optimal control methods implemented in this projects are categorised based on how much information about the system is available as Planning Methods, Model-Based Learning, and Model-Free Learning.
 The systems modelled in this project are categorised based on how much information about the system is available as Deterministic systems, and Stochastic Systems.
 
+# Table of Contents
 
+* [Introduction to Optimal Control](#1)
+  - [Dynamical Systems](#2)- a brief overview of dynamical systems
+    + [Properties of dynamical systems](#3) 
+    + [Challenges that may arise when modelling a dynamical system](#4)
+    + [Types of dynamical systems](#5)- based on the amount of information needed to model them
+  - [Control Theory](#5)
+    + [Basic terminology of control theory](#6)
+    + [Challenges that may arise when controlling a system](#7)
+    + [Methods of control](#8)
+    + [Markov Decision Processes](#6)
+  - [Optimization Problems](#7)
+    + [Types of optimization problems](#8)
+    + [Methods of optimization](#9)
+    - [Optimization in Control Theory](#10)
+* [Optimal Control Methods](#9)
+  - [Analytical/ Planning Methods](#10)
+    + [Variational Calculus](#11)
+    + [Minimum Principle](#12)
+    + [Hamilton-Jacobi-Bellman Equation](#13)
+  - [Learning Methods](#14)
+    + [Dynamic Programming](#15)
+    + [Model-Based Reinforcemnt Learning](#16)
+    + [Model-Free Reinforment Learning](#17)
+* [Implementation of Solutions](#18)
+  - [Case Study 1: Trajectory Optimization](#19)
+    + [System Design](#20)
+    + [Control Implementation](#21)
+  - [Case Study 2: Adaptive Control](#22)
+    + [System Design](#23)
+    + [Control Implementation](#24)
+  - [Case Study 3: Stochastic Control](#25)
+    + [System Design](#26)
+    + [Control Implementation](#27)
+* [Code Design](#28)
 
 ## The Objective
 
