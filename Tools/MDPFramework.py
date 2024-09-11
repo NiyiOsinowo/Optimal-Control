@@ -52,15 +52,17 @@ class MDPController(ABC):
 
   @abstractmethod
   def act(self, observation: np.ndarray)-> np.ndarray:
+      'Produces an action based on the observation of the current state of the environment'
       ...
   
   @abstractmethod
   def observe(self)-> np.ndarray:
+      'Produces a vector encoding the observable information of the observation of the current state of the environment'
       ...
 
 @dataclass(kw_only=True)
 class LearningAgent(MDPController, EnforceClassTyping):
   
   def learn(self):
-    # function to update the policy to improve performance
+    'Updates the policy to improve performance'
     NotImplementedError ("Subclasses must implement this method")

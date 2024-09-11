@@ -6,6 +6,11 @@ This project will focus on apply different optimal control methods on different 
 The optimal control methods implemented in this projects are categorised based on how much information about the system is available as Planning Methods, Model-Based Learning, and Model-Free Learning.
 The systems modelled in this project are categorised based on how much information about the system is available as Deterministic systems, and Stochastic Systems.
 
+
+## The Objective
+
+The objective of this project is to determine the most effective optimal control method for each system 
+
 # Table of Contents
 
 * [Introduction to Optimal Control](#1)
@@ -43,13 +48,13 @@ The systems modelled in this project are categorised based on how much informati
     + [Control Implementation](#27)
 * [Code Design](#28)
 
-## The Objective
-
-The objective of this project is to determine the most effective optimal control method for each system 
-
-
-## The Code
-
+## Code Design
+The code for this project will be written in Python with Jupyter Notebook and will be divided into the following sections:
+- **Optimal Control Methods**: This section will contain the implementation of the different optimal control methods.
+- **System Models**: This section will contain the implementation of the different system models.
+- **Case Studies**: This section will contain the implementation of the different case studies.
+- **Tests**: This section will contain the code to test each System Model, and Optimal Control Method
+- **Tools**: 
 The code is tested with `Python 3.12.1` with the following packages:
 ```
 Package    Version

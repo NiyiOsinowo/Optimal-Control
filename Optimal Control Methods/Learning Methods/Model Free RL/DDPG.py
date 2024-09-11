@@ -18,7 +18,6 @@ T.Tensor.ndim = property(lambda self: len(self.shape))
 project_path= os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(os.curdir))))
 @dataclass(kw_only=True)
 class DDPGAgent(LearningAgent, EnforceClassTyping):
-
     def __init__(self, 
                  environment: MDPEnvironment, 
                  actor_layers: tuple,
