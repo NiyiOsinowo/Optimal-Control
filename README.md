@@ -46,7 +46,6 @@ The objective of this project is to determine the most effective optimal control
   - [Case Study 3: Stochastic Control](#25)
     + [System Design](#26)
     + [Control Implementation](#27)
-* [Code Design](#28)
 
 ## Code Design
 The code for this project will be written in Python with Jupyter Notebook and will be divided into the following sections:
@@ -54,7 +53,9 @@ The code for this project will be written in Python with Jupyter Notebook and wi
 - **System Models**: This section will contain the implementation of the different system models.
 - **Case Studies**: This section will contain the implementation of the different case studies.
 - **Tests**: This section will contain the code to test each System Model, and Optimal Control Method
-- **Tools**: 
+- **Tools**: This section will contain scripts to automate tasks in the project.
+
+
 The code is tested with `Python 3.12.1` with the following packages:
 ```
 Package    Version
