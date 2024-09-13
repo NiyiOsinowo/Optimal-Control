@@ -1,24 +1,42 @@
-## Control Theory <a id ="6"></a>
-Control theory is the branch of mathematics that deals with the controlling the behavior of dynamical systems to achieve a desired behavior.
 
+# Solving Optimal Control Problems <a id ="41"></a>
 
+## Analytical/ Planning Methods <a id ="42"></a>
+Optimal control problems can be solved using analytical methods, such as the Pontryagin's Minimum
+Principle (PMP), which is a necessary condition for optimality. The PMP states that
+the Hamiltonian function, which is a combination of the state and control variables, must be
+minimized with respect to the control variable.
 
-### Basic terminology of control theory <a id ="7"></a>
+### Variational Calculus <a id ="43"></a>
+Variational calculus is a method used to find the optimal solution to a problem by minimizing or maximizing a
+functional. It is used in optimal control problems where the goal is to find the optimal control input that
+minimizes or maximizes a performance criterion.
 
-### Challenges that may arise when controlling a system <a id ="8"></a>
+### Minimum Principle <a id ="44"></a>
+The minimum principle is a method used to solve optimal control problems. It states that the optimal control input
+is the one that minimizes the Hamiltonian function, which is a function of the state, control input, and the adjoint variable.
+The adjoint variable is a function that is used to compute the gradient of the performance criterion with respect
+to the control input.
 
-### Methods of control <a id ="9"></a>
-Feedback/closed-loop control is a control system that adjusts its output based on measured differences between the actual output and the desired output, with the goal of reducing those differences over time.
-Open-loop control is a control system that does not adjust its output based on measured differences between the actual output and the desired output.
-### Markov Decision Processes <a id ="10"></a>
-A Markov Decision Process (MDP) is a mathematical framework for modeling decision-making in situations where
-outcomes are partially random and partially under the control of a decision maker. An MDP is a
-5-tuple $(S,A,P,R,\gamma)$, where:
+### Hamilton-Jacobi-Bellman Equation <a id ="45"></a>
+The Hamilton-Jacobi-Bellman (HJB) equation is a partial differential equation that is used to solve optimal control problems. It is a dynamic programming approach that computes the optimal control input by minimizing the performance criterion over a finite horizon.
 
-- $S$ is a set of states
-- $A$ is a set of actions
-- $P(s'|s,a)$ is the transition probability from state $s$ to state $
-- $R(s,a,s')$ is the reward function
-- $\gamma$ is the discount factor
+## Learning Methods <a id ="46"></a>
+Learning methods, such as reinforcement learning, can be used to solve optimal control problems. These methods
+learn the optimal control input by interacting with the environment and receiving feedback in the form of rewards
+or penalties.
 
-The goal of an MDP is to find a policy $\pi(a|s)$ that maximizes the expected cumulative reward over an infinite horizon.
+### Dynamic Programming <a id ="47"></a>
+Dynamic programming is a method used to solve optimal control problems by breaking down the problem into smaller
+sub-problems and solving each sub-problem recursively. It is used in reinforcement learning to compute the
+optimal control input by minimizing the cumulative reward over a finite horizon.
+
+### Model-Based Reinforcment Learning <a id ="48"></a>
+Model-based reinforcement learning is a method used to solve optimal control problems by learning a model of the
+environment and using it to compute the optimal control input. It is used in applications where the environment
+is complex and difficult to model.
+
+### Model-Free Reinforcement Learning <a id ="49"></a>
+Model-free reinforcement learning is a method used to solve optimal control problems by learning the optimal control
+input directly from experience without learning a model of the environment. It is used in applications where the
+environment is simple and easy to model.

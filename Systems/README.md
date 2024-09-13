@@ -1,3 +1,10 @@
+This introduction will consist of an overview of the core concepts behind optimal control theory and outline it's connection other fields of knowledge. This introduction will be dedicated to understanding the Optimal Control(OC) problems.
+
+To have a better understanding of OC problems I will begin by providing an overview of the core concepts behind optimal control theory including Dynamical Systems, Control Theory, Game Theory and Optimization Problems.
+
+# Introduction <a id ="1"></a>
+Optimal Control refers to the process of finding the control signals that will drive a dynamic system to a desired state while minimizing or maximizing a given performance criterion, such as time or energy consumption.  The goal of optimal control is to find the optimal control strategy that will achieve the desired outcome while satisfying the constraints of the system.
+
 ## Dynamical Systems <a id ="2"></a>
 Dynamical systems are mathematical models that describe how a system's state changes over time. Dynamical systems can exhibit a wide range of behaviors, including stability, chaos, and oscillation, depending on the system's parameters and initial conditions. The behaviour of dynamical systems are typically expressed as Ordinary Differential Equations(ODEs), which allows us to easily analyse the behaviour of the system by analysing the ODE. 
 
@@ -86,3 +93,34 @@ Then, we can rewrite ( 4 ) in a first-order form as:
 
 $\dot{y}=g(y, u)$(6)
 where  $g(y, u)=f(x, \dot{x}, u)$ simply "unstacks" the state and velocity from  $y$ . Now all of the machinery of first-order systems can be applied to the second order system. This can also be done for dynamic systems of order 3 and higher, wherein all derivatives are stacked into a single vector.
+
+## Control Theory <a id ="6"></a>
+Control theory is the branch of mathematics that deals with the controlling the behavior of dynamical systems to achieve a desired behavior.
+
+
+
+### Basic terminology of control theory <a id ="7"></a>
+
+### Challenges that may arise when controlling a system <a id ="8"></a>
+
+### Methods of control <a id ="9"></a>
+Feedback/closed-loop control is a control system that adjusts its output based on measured differences between the actual output and the desired output, with the goal of reducing those differences over time.
+Open-loop control is a control system that does not adjust its output based on measured differences between the actual output and the desired output.
+### Markov Decision Processes <a id ="10"></a>
+A Markov Decision Process (MDP) is a mathematical framework for modeling decision-making in situations where
+outcomes are partially random and partially under the control of a decision maker. An MDP is a
+5-tuple $(S,A,P,R,\gamma)$, where:
+
+- $S$ is a set of states
+- $A$ is a set of actions
+- $P(s'|s,a)$ is the transition probability from state $s$ to state $
+- $R(s,a,s')$ is the reward function
+- $\gamma$ is the discount factor
+
+The goal of an MDP is to find a policy $\pi(a|s)$ that maximizes the expected cumulative reward over an infinite horizon.
+
+## Optimization Problems <a id ="11"></a>
+Optimization problems are problems that involve finding the best solution among a set of possible solutions. In the
+context of dynamical systems, optimization problems often involve finding the control inputs that minimize or
+maximize a cost function over time.
+
