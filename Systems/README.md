@@ -1,9 +1,9 @@
-This introduction will consist of an overview of the core concepts behind optimal control theory and outline it's connection other fields of knowledge. This introduction will be dedicated to understanding the Optimal Control(OC) problems.
+The goal of this section is to develop a fundamental understanding of what Optimal Control(OC) problems are, their defining characteristics and how to model and represent them. This section will consist of an overview of the core concepts behind optimal control theory and outline it's connection other fields of knowledge. 
 
 To have a better understanding of OC problems I will begin by providing an overview of the core concepts behind optimal control theory including Dynamical Systems, Control Theory, Game Theory and Optimization Problems.
 
 # Introduction <a id ="1"></a>
-Optimal Control refers to the process of finding the control signals that will drive a dynamic system to a desired state while minimizing or maximizing a given performance criterion, such as time or energy consumption.  The goal of optimal control is to find the optimal control strategy that will achieve the desired outcome while satisfying the constraints of the system.
+An Optimal Control problem is fundamentally an optimization problem that involves finding the best possible control strategy for a system to achieve a desired outcome over a specified time horizon. The goal is to find the optimal **control inputs** that minimize or maximize a **performance criterion**, subject to **constraints** on the system's dynamics and the control inputs. 
 
 ## Dynamical Systems <a id ="2"></a>
 Dynamical systems are mathematical models that describe how a system's state changes over time. Dynamical systems can exhibit a wide range of behaviors, including stability, chaos, and oscillation, depending on the system's parameters and initial conditions. The behaviour of dynamical systems are typically expressed as Ordinary Differential Equations(ODEs), which allows us to easily analyse the behaviour of the system by analysing the ODE. 
