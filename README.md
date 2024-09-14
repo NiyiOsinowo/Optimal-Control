@@ -14,7 +14,7 @@ The objective of this project is to determine the most effective optimal control
 # Table of Contents
 
 * [Introduction to Optimal Control](#1)
-  - [Dynamical Systems](#2)- a brief overview of dynamical systems
+  - [Dynamical Systems](./Systems/README.md)- a brief overview of dynamical systems
     + [Properties of dynamical systems](#3) 
     + [Challenges that may arise when modelling a dynamical system](#4)
     + [Types of dynamical systems](#5)- based on the amount of information needed to model them
