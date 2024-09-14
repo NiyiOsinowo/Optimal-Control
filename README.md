@@ -13,20 +13,20 @@ The objective of this project is to determine the most effective optimal control
 
 # Table of Contents
 
-* [Introduction to Optimal Control](#1)
+* [Introduction to Optimal Control Problems](./Systems/README.md)
   - [Dynamical Systems](./Systems/README.md)- a brief overview of dynamical systems
-    + [Properties of dynamical systems](#3) 
-    + [Challenges that may arise when modelling a dynamical system](#4)
-    + [Types of dynamical systems](#5)- based on the amount of information needed to model them
-  - [Control Theory](#5)
-    + [Basic terminology of control theory](#6)
-    + [Challenges that may arise when controlling a system](#7)
-    + [Methods of control](#8)
-    + [Markov Decision Processes](#6)
-  - [Optimization Problems](#7)
-    + [Types of optimization problems](#8)
-    + [Methods of optimization](#9)
-    - [Optimization in Control Theory](#10)
+    + [Properties of dynamical systems](./Systems/README.md) 
+    + [Challenges that may arise when modelling a dynamical system](./Systems/README.md)
+    + [Types of dynamical systems](./Systems/README.md)- based on the amount of information needed to model them
+  - [Control Theory](./Systems/README.md)
+    + [Basic terminology of control theory](./Systems/README.md)
+    + [Challenges that may arise when controlling a system](./Systems/README.md)
+    + [Methods of control](./Systems/README.md)
+    + [Markov Decision Processes](./Systems/README.md)
+  - [Optimization Problems](./Systems/README.md)
+    + [Types of optimization problems](./Systems/README.md)
+    + [Methods of optimization](./Systems/README.md)
+    - [Optimization in Control Theory](./Systems/README.md)
 * [Optimal Control Methods](#9)
   - [Analytical/ Planning Methods](#10)
     + [Variational Calculus](#11)
