@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 from dataclasses import *
 import sys
@@ -8,6 +7,11 @@ from MDPFramework import MDPEnvironment,  LearningAgent
 
 @dataclass
 class MPController(LearningAgent, EnforceClassTyping):
+    
+    @property
+    def policy(self):
+      pass
+    
     @property
     def internal_model(self):
         raise NotImplementedError

@@ -1,17 +1,18 @@
 The goal of this section is to develop a fundamental understanding of what Optimal Control(OC) problems are, their defining characteristics and how to model and represent them. This section will consist of an overview of the core concepts behind optimal control theory and outline it's connection other fields of knowledge. 
 
-To have a better understanding of OC problems I will begin by providing an overview of the core concepts behind optimal control theory including Dynamical Systems, Control Theory, Game Theory and Optimization Problems.
+To have a better understanding of OC problems I will begin by providing an overview of the core concepts behind optimal control theory including Dynamical Systems, Control Theory and Optimization Problems.
 
 # Introduction <a id ="1"></a>
 An Optimal Control problem is fundamentally an optimization problem that involves finding the best possible control strategy for a system to achieve a desired outcome over a specified time horizon. The goal is to find the optimal **control inputs** that minimize or maximize a **performance criterion**, subject to **constraints** on the system's dynamics and the control inputs. 
 
-## Dynamical Systems <a id ="2"></a>
-Dynamical systems are mathematical models that describe how a system's state changes over time. Dynamical systems can exhibit a wide range of behaviors, including stability, chaos, and oscillation, depending on the system's parameters and initial conditions. The behaviour of dynamical systems are typically expressed as Ordinary Differential Equations(ODEs), which allows us to easily analyse the behaviour of the system by analysing the ODE. 
+An optimal control problem can be thought of as a combination of a control problem and optimization problem on a dynamical system.
 
-In the topic of Dynamical Systems I will cover 
-1) Basic Terminology of Dynamical Systems
-2) Types of dynamical systems.
-3) Challenges that may arise when modelling a dynamical system
+## Dynamical Systems <a id ="2"></a>
+The foundation of an optimal control problem is a dynamical system, which describes how the system's state evolves over time. Dynamical systems are mathematical models that describe how a system's state changes over time. A dynamical system can be modelled in different ways depending on the complexity of the dynamics and other properties of the system but are most commonly represented mathematically by differential equations. The behaviour of dynamical systems are typically expressed as Ordinary Differential Equations(ODEs), which allows us to easily analyse the behaviour of the system by analysing the ODE. 
+
+The dynamics provide the constraints within which the system must operate.
+
+The first step to solving an optimal control problem is system identification(i.e. the process of understanding and modelling the behavior/dynamics of the system). 
 
 ### Basic terminology of dynamical systems <a id ="3"></a>
 
@@ -19,29 +20,19 @@ In the topic of Dynamical Systems I will cover
 
 **State Equation**: The differential equation (or difference equation for discrete-time systems) that describes how the system's state evolves over time.
 
-**Equilibrium Points**: States where the system remains stationary, with no further changes in the state vector.
+**Equilibrium Points**: States where the system remains stationary, with no further changes in the state vector. A **stable point** is a state $x$ such that for some neighborhood of $x$, the ODE is convergent toward $x$(i.e. $\dot{x} = 0$). A necessary condition for a point to be stable is that it is an *equilibrium point*.
 
-**Stability**: The tendency of a system to remain near or return to an equilibrium point following a perturbation.
+**Stability**: The tendency of a system to remain near or return to an equilibrium point following a perturbation. A dynamic system is said to be Stable( or convergent) for some class of initial states if its solution trajectories do not grow without bound and Unstable(or divergent) otherwise. All stable points are equilibria, but the converse is not true, a point can be an equilibrium without being stable.
 
 **Controllability**: The ability to drive a system from any initial state to any desired final state within a finite time.
 
 **Observability**: The ability to reconstruct the full state of a system from its outputs or observations.
 
-A dynamic system is said to be:
-
-Stable for some class of initial states if its solution trajectories do not grow without bound,
-
-Unstable (or divergent) if the trajectories grow without bound, and
-
-Convergent if the solution trajectories approach a single point.
-
-Autonomous system if its dynamics are invariant in time.
-
-A **stable point** is a state $x$ such that for some neighborhood of $x$, the ODE is convergent toward $x$(i.e. $\dot{x} = 0$). A necessary condition for a point to be stable is that it is an *equilibrium point*.
-
-All stable points are equilibria, but the converse is not true, a point can be an equilibrium without being stable.
+A dynamic system is said to be Autonomous if its dynamics are invariant in time.
 
 ### Types of dynamical systems <a id ="5"></a>
+Many systems fall under the There are different ways to classify dynamical systems, in this project I will focus on classifying systems based on how much information about its dynamcis is available. In this project I have chosen to focus on a more practical feature when it comes to solving real world optimal control problems and that is the amount of information about the dynamics of the system that is available.
+
 If all the factors driving the change of a dynamical system can be identified, it is called a deterministic system. If none(or lim->0) the factors driving the change of a dynamical system can be identified, it is called a stochastic system.
 
 ### Challenges that may arise when modelling a dynamical system <a id ="4"></a>

@@ -3,6 +3,8 @@
         "./Tools",
         "./Code/Systems",
         "./Code/Optimal Control Methods/Learning Methods/Model Free RL",
-        "./Code/Optimal Control Methods/Planning Methods"
+        "./Code/Optimal Control Methods/Planning Methods",
+        "./Systems",
+        "./Optimal Control Methods/Planning Methods"
     ]
 }
