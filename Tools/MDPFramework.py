@@ -52,12 +52,12 @@ class MDPController(ABC):
 
   @abstractmethod
   def act(self, observation: np.ndarray)-> np.ndarray:
-      'Produces an action based on the observation of the current state of the environment'
+      'Produces an action based on an observation of the state of the environment'
       ...
   
   @abstractmethod
   def observe(self)-> np.ndarray:
-      'Produces a vector encoding the observable information of the observation of the current state of the environment'
+      'Produces a vector encoding the observable information of the current state of the environment'
       ...
 
 @dataclass(kw_only=True)

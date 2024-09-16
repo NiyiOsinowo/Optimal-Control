@@ -148,9 +148,9 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
         plt.legend()
         plt.show()
     
-    def update_network_parameters(self, SoftUpdateRate=1):
-        if SoftUpdateRate is None:
-            SoftUpdateRate = self.soft_update_rate
+    def update_network_parameters(self, soft_update_rate: float=None):
+        if soft_update_rate is None:
+            soft_update_rate = self.soft_update_rate
 
         Critic_state_dict = dict(self.critic.named_parameters())
         Actor_state_dict = dict(self.policy.named_parameters())
@@ -158,11 +158,11 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
         TargetActor_dict = dict(self.target_actor.named_parameters())
 
         for name in Critic_state_dict:
-            Critic_state_dict[name] = SoftUpdateRate*Critic_state_dict[name].clone() + (1-SoftUpdateRate)*TargetCritic_dict[name].clone()
+            Critic_state_dict[name] = soft_update_rate*Critic_state_dict[name].clone() + (1-soft_update_rate)*TargetCritic_dict[name].clone()
         self.target_critic.load_state_dict(Critic_state_dict)
 
         for name in Actor_state_dict:
-            Actor_state_dict[name] = SoftUpdateRate*Actor_state_dict[name].clone() + (1-SoftUpdateRate)*TargetActor_dict[name].clone()
+            Actor_state_dict[name] = soft_update_rate*Actor_state_dict[name].clone() + (1-soft_update_rate)*TargetActor_dict[name].clone()
         self.target_actor.load_state_dict(Actor_state_dict)
 
         """
