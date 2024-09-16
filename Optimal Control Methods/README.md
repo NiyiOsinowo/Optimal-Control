@@ -4,14 +4,14 @@ This document explores various methods used to solve optimal control problems, c
 
 ## Analytical/Planning Methods <a id="42"></a>
 
-Analytical methods provide rigorous mathematical tools for deriving optimal control laws, often using differential equations and variational principles.
+Analytical methods provide rigorous mathematical tools for deriving optimal control laws, often using differential equations and variational principles. This method requires full-information about the system to work (i.e. an accurate equation for the dynamics, finite degrees of freedom, knowledge of all forces driving the system).
 
 ### Pontryagin's Minimum Principle (PMP) <a id="43"></a>
 
 **Pontryagin's Minimum Principle (PMP)** is a fundamental tool for solving constrained optimal control problems. Given a dynamical system defined by:
-\[
+$\[
 \dot{x}(t) = f(x(t), u(t), t), \quad x(t_0) = x_0
-\]
+\]$
 where \( x(t) \in \mathbb{R}^n \) is the state, and \( u(t) \in \mathbb{R}^m \) is the control input. The objective is to minimize the cost function:
 \[
 J = \int_{t_0}^{t_f} L(x(t), u(t), t) \, dt + \phi(x(t_f))
