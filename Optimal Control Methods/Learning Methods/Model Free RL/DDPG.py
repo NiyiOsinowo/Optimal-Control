@@ -18,7 +18,6 @@ T.Tensor.ndim = property(lambda self: len(self.shape))
 project_path= os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(os.curdir))))
 @dataclass(kw_only=True)
 class DDPGAgent(LearningAgent, EnforceClassTyping):
-
     def __init__(self, 
                  environment: MDPEnvironment, 
                  actor_layers: tuple,
@@ -149,9 +148,9 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
         plt.legend()
         plt.show()
     
-    def update_network_parameters(self, SoftUpdateRate=1):
-        if SoftUpdateRate is None:
-            SoftUpdateRate = self.soft_update_rate
+    def update_network_parameters(self, soft_update_rate: float=None):
+        if soft_update_rate is None:
+            soft_update_rate = self.soft_update_rate
 
         Critic_state_dict = dict(self.critic.named_parameters())
         Actor_state_dict = dict(self.policy.named_parameters())
@@ -159,11 +158,11 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
         TargetActor_dict = dict(self.target_actor.named_parameters())
 
         for name in Critic_state_dict:
-            Critic_state_dict[name] = SoftUpdateRate*Critic_state_dict[name].clone() + (1-SoftUpdateRate)*TargetCritic_dict[name].clone()
+            Critic_state_dict[name] = soft_update_rate*Critic_state_dict[name].clone() + (1-soft_update_rate)*TargetCritic_dict[name].clone()
         self.target_critic.load_state_dict(Critic_state_dict)
 
         for name in Actor_state_dict:
-            Actor_state_dict[name] = SoftUpdateRate*Actor_state_dict[name].clone() + (1-SoftUpdateRate)*TargetActor_dict[name].clone()
+            Actor_state_dict[name] = soft_update_rate*Actor_state_dict[name].clone() + (1-soft_update_rate)*TargetActor_dict[name].clone()
         self.target_actor.load_state_dict(Actor_state_dict)
 
         """
@@ -200,11 +199,12 @@ def DDPGAlgorithm(environment: MDPEnvironment, agent: DDPGAgent, n_episodes: int
     for _ in range(n_episodes):
         environment.reset()
         terminal_signal = False
-        episode_return = 0
+        episode_return = 0.0
         for _ in range(episode_duration):
-            observation= agent.observe()
+            current_state= environment.current_state
+            observation= agent.observe(current_state)
             action = agent.act(observation) 
-            new_state, reward, terminal_signal= environment.transition_step(environment.current_state, np.array(action), agent.control_interval) 
+            new_state, reward, terminal_signal= environment.transition_step(current_state, np.array(action), agent.control_interval) 
             agent.memory.append((observation, action, agent.observe(new_state), reward, int(terminal_signal)))
             agent.learn()
             episode_return += reward
