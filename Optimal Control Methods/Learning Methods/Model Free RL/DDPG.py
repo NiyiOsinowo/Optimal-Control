@@ -7,15 +7,16 @@ import torch.nn as nn
 import random
 from collections import deque
 import os
+project_path= os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(os.curdir))))
 import sys
-sys.path.insert(0, '/Users/niyi/Documents/GitHub/Optimal-Control/Tools')
+sys.path.insert(0, project_path+ '/Tools')
 from OUNoise import OUNoise
 from EnforceTyping import EnforceClassTyping, enforce_method_typing, enforce_function_typing
 from MDPFramework import MDPEnvironment,  LearningAgent
 from ActorCriticNetworks import ActorNetwork, CriticNetwork
 T.Tensor.ndim = property(lambda self: len(self.shape))
 
-project_path= os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(os.curdir))))
+
 @dataclass(kw_only=True)
 class DDPGAgent(LearningAgent, EnforceClassTyping):
     def __init__(self, 
