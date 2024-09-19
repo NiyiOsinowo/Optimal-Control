@@ -5,9 +5,10 @@ from abc import ABC, abstractmethod
 import matplotlib.pyplot as plt
 from typing import Any, List, Tuple
 import scipy.integrate as integrate
-import sys
 import os
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(os.curdir)))+ '/Tools')
+project_path= os.path.dirname(os.path.abspath(os.curdir))
+import sys
+sys.path.insert(0, project_path+ '/Tools')
 from EnforceTyping import EnforceClassTyping, enforce_method_typing
 from MDPFramework import MDPEnvironment
 

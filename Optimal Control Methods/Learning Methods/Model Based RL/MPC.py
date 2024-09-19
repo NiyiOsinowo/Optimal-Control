@@ -1,7 +1,9 @@
 import numpy as np
 from dataclasses import *
+import os
+project_path= os.path.dirname(os.path.abspath(os.curdir))
 import sys
-sys.path.insert(0, '/Users/niyi/Documents/GitHub/Optimal-Control/Tools')
+sys.path.insert(0, project_path+ '/Tools')
 from EnforceTyping import EnforceClassTyping, enforce_method_typing, enforce_function_typing
 from MDPFramework import MDPEnvironment,  LearningAgent
 

@@ -3,8 +3,7 @@ import torch as T
 import torch.nn as nn
 import torch.optim as optim
 import os
-import sys
-sys.path.insert(0, '/Users/niyi/Documents/GitHub/Optimal-Control/Tools')
+project_path= os.path.dirname(os.path.abspath(os.curdir))
 from EnforceTyping import enforce_method_typing
 class CriticNetwork(nn.Module):
     def __init__(self, state_size: int, action_size: int, hidden_layers: tuple, layer_activations: tuple, name: str, learning_rate: float, project_path: str):
@@ -49,7 +48,7 @@ class CriticNetwork(nn.Module):
             self.network.load_state_dict(T.load(self.checkpoint_file))
  
 class ActorNetwork(nn.Module):
-    def __init__(self, state_size, action_size, hidden_layers, layer_activations, name, learning_rate, project_path: str):
+    def __init__(self, state_size: int, action_size: int, hidden_layers: tuple, layer_activations: tuple, name: str, learning_rate: float, project_path: str):
         super(ActorNetwork, self).__init__()
         if not os.path.exists(os.path.join(project_path, 'Data', 'Temp', 'actor_data')):
             os.makedirs(os.path.join(project_path, 'Data', 'Temp', 'actor_data'))
