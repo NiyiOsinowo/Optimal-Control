@@ -71,8 +71,8 @@ class ParticleInField(MDPEnvironment):
   particle: ClassicalParticle
   target: np.ndarray # m
   proximity_weight: float= 1.0
-  energy_weight: float= -1.0
-  terminal_signal_weight: float= -1000.0
+  energy_weight: float= 1.0
+  terminal_signal_weight: float= 1000.0
   current_time: float = 0.0# s
   state_dims: tuple= None
   action_dims: tuple= None
@@ -154,11 +154,11 @@ class ParticleInField(MDPEnvironment):
         float: The reward value
     """
     distance_gained = np.linalg.norm(state.position - self.target) - np.linalg.norm(next_state.position - self.target)
-    energy_consumed = np.linalg.norm(control)
+    energy_consumed = (control[0]**2 + control[1]**2)/2
     reward = (
         self.proximity_weight * distance_gained
-        + self.energy_weight * energy_consumed
-        + self.terminal_signal_weight * int(terminal_signal)
+        - self.energy_weight * energy_consumed
+        - self.terminal_signal_weight * int(terminal_signal)
     )
     return reward
   
@@ -177,7 +177,7 @@ class ParticleInField(MDPEnvironment):
     y_bound = -10.0 <= state.position[1] <= 10.0
     velocity_bound = np.linalg.norm(state.velocity) < 10.0
 
-    return not (x_bound and y_bound and velocity_bound)
+    return (x_bound and y_bound and velocity_bound)
   
   @enforce_method_typing
   def transition_step(
