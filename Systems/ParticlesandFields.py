@@ -177,7 +177,7 @@ class ParticleInField(MDPEnvironment):
     y_bound = -10.0 <= state.position[1] <= 10.0
     velocity_bound = np.linalg.norm(state.velocity) < 10.0
 
-    return (x_bound and y_bound and velocity_bound)
+    return not (x_bound and y_bound and velocity_bound)
   
   @enforce_method_typing
   def transition_step(

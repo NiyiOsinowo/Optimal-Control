@@ -16,7 +16,6 @@ from MDPFramework import MDPEnvironment,  LearningAgent
 from ActorCriticNetworks import ActorNetwork, CriticNetwork
 T.Tensor.ndim = property(lambda self: len(self.shape))
 
-
 @dataclass(kw_only=True)
 class DDPGAgent(LearningAgent, EnforceClassTyping):
     def __init__(self, 
@@ -30,11 +29,11 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
                  actor_learning_rate: float,
                  critic_learning_rate: float,
                  soft_update_rate: float,
-                 control_interval: float = 0.5,
-                 control_magnitude: float= 1e-11,
+                 control_interval: float,
+                 control_magnitude: float,
                  discount_rate: float =0.99,
                  max_size: int= 1000,
-                 batch_size: int= 6):
+                 batch_size: int= 50):
         self.environment= environment
         self.actor = ActorNetwork(observation_size, action_size, actor_layers, actor_activations, 'DDPGMainActor', actor_learning_rate, project_path)
         self.critic = CriticNetwork(observation_size, action_size, critic_layers, critic_activations, 'DDPGMainCritic', critic_learning_rate, project_path)
