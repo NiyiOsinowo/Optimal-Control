@@ -1,11 +1,12 @@
-# Optimal Control Methods
+# Optimal Control
 
 The aim of this project is to explore and compare the different methods of solving optimal control problems.
 
 This project will focus on apply different optimal control methods on different types of systems with the goal.
-The optimal control methods implemented in this projects are categorised based on how much information about the system is available as Planning Methods, Model-Based Learning, and Model-Free Learning.
-The systems modelled in this project are categorised based on how much information about the system is available as Deterministic systems, and Stochastic Systems.
 
+The optimal control methods implemented in this projects are categorised based on how much information about the system is available as Planning Methods which require complete information on the system, Model-Based Learning which require some information on the system, and Model-Free Learning which requires almost no information on the system.
+
+The systems modelled in this project are also categorised based on how much information about the system is available as Deterministic systems, and Stochastic Systems.
 
 ## The Objective
 
@@ -14,10 +15,10 @@ The objective of this project is to determine the most effective optimal control
 # Table of Contents
 
 * [Introduction to Optimal Control Problems](./Systems/README.md)
-  - [Dynamical Systems](./Systems/README.md)- a brief overview of dynamical systems
+  - [Dynamical Systems](./Systems/README.md)
     + [Properties of dynamical systems](./Systems/README.md) 
     + [Challenges that may arise when modelling a dynamical system](./Systems/README.md)
-    + [Types of dynamical systems](./Systems/README.md)- based on the amount of information needed to model them
+    + [Types of dynamical systems](./Systems/README.md)
   - [Control Theory](./Systems/README.md)
     + [Basic terminology of control theory](./Systems/README.md)
     + [Challenges that may arise when controlling a system](./Systems/README.md)
