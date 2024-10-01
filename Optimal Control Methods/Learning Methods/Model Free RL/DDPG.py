@@ -32,8 +32,8 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
                  control_interval: float,
                  control_magnitude: float,
                  discount_rate: float =0.99,
-                 max_size: int= 1000,
-                 batch_size: int= 50):
+                 max_size: int= 1024,
+                 batch_size: int= 64):
         self.environment= environment
         self.actor = ActorNetwork(observation_size, action_size, actor_layers, actor_activations, 'DDPGMainActor', actor_learning_rate, project_path)
         self.critic = CriticNetwork(observation_size, action_size, critic_layers, critic_activations, 'DDPGMainCritic', critic_learning_rate, project_path)
@@ -49,7 +49,7 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
         self.discount_rate= discount_rate
         self.batch_size= batch_size
         self.noise = OUNoise(mu=np.zeros(action_size))
-        self.control_interval= self.control_interval# Action duration= conrol interval
+        self.control_interval= self.control_interval
         self.control_magnitude= control_magnitude
         self.update_network_parameters()
 
