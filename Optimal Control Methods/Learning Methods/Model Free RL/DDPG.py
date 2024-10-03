@@ -30,7 +30,7 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
                  critic_learning_rate: float,
                  soft_update_rate: float,
                  control_interval: float,
-                 control_magnitude: float,
+                 control_magnitude: float= 1.0,
                  discount_rate: float =0.99,
                  max_size: int= 1024,
                  batch_size: int= 64):
@@ -64,17 +64,24 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
         return observation
 
     @enforce_method_typing
-    def act(self, observation: T.Tensor, with_noise: bool= True):
+    def act(self, observation: T.Tensor)-> T.Tensor:
+        '''Generates a control signal based on an observation'''
         self.actor.eval()
         observation = observation.to(self.actor.device)
         action = self.policy(observation).to(self.actor.device)
-        noise= T.tensor(self.noise(), dtype=T.float)
-        noisy_action = (self.control_magnitude* (action + noise)).to(self.actor.device)
+        return action.cpu().detach()
+    
+    @enforce_method_typing
+    def control_mechanism(self, control_signal: T.Tensor, with_noise: bool= True)-> np.ndarray:
+        '''Generates a control force based on a control signal'''
         if with_noise:
-            return noisy_action.cpu().detach()
+            noise= T.tensor(self.noise(), dtype=T.float)
+            noisy_control = (self.control_magnitude* (control_signal + noise)).to(self.actor.device)
+            return np.array(noisy_control)
         else:
-            return action.cpu().detach()
-
+            control= (self.control_magnitude* control_signal).to(self.actor.device)
+            return np.array(control)
+        
     @enforce_method_typing 
     def learn(self):
         if len(self.memory) < self.batch_size:
@@ -204,7 +211,8 @@ def DDPGAlgorithm(environment: MDPEnvironment, agent: DDPGAgent, n_episodes: int
             current_state= environment.current_state
             observation= agent.observe(current_state)
             action = agent.act(observation) 
-            new_state, reward, terminal_signal= environment.transition_step(current_state, np.array(action), agent.control_interval) 
+            control= agent.control_mechanism(action)
+            new_state, reward, terminal_signal= environment.transition_step(current_state, control, agent.control_interval) 
             agent.memory.append((observation, action, agent.observe(new_state), reward, int(terminal_signal)))
             agent.learn()
             episode_return += reward

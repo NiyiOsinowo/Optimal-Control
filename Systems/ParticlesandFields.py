@@ -69,7 +69,7 @@ class ParticleInField(MDPEnvironment):
   """
   field: Field
   particle: ClassicalParticle
-  target: np.ndarray # m
+  target_position: np.ndarray # m
   proximity_weight: float= 1.0
   energy_weight: float= 1.0
   terminal_signal_weight: float= 1000.0
@@ -91,7 +91,7 @@ class ParticleInField(MDPEnvironment):
   current_state: State = None
 
   def __post_init__(self):
-    assert self.target.shape == self.field.dimensionality, "The target has wrong dimensions"
+    assert self.target_position.shape == self.field.dimensionality, "The target has wrong dimensions"
     if self.initial_state is None:
         self.initial_state= self.random_state()
     self.current_state= self.initial_state
@@ -153,11 +153,11 @@ class ParticleInField(MDPEnvironment):
     Returns:
         float: The reward value
     """
-    distance_gained = np.linalg.norm(state.position - self.target) - np.linalg.norm(next_state.position - self.target)
+    distance_gained = np.linalg.norm(state.position - self.target_position) - np.linalg.norm(next_state.position - self.target_position)
     energy_consumed = (control[0]**2 + control[1]**2)/2
     reward = (
         self.proximity_weight * distance_gained
-        - self.energy_weight * energy_consumed
+        # - self.energy_weight * energy_consumed
         - self.terminal_signal_weight * int(terminal_signal)
     )
     return reward

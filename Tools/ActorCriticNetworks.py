@@ -4,6 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 import os
 project_path= os.path.dirname(os.path.abspath(os.curdir))
+print(project_path)
 from EnforceTyping import enforce_method_typing
 class CriticNetwork(nn.Module):
     def __init__(self, state_size: int, action_size: int, hidden_layers: tuple, layer_activations: tuple, name: str, learning_rate: float, project_path: str):
