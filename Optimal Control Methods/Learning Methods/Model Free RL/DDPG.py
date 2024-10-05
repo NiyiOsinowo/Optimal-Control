@@ -8,6 +8,7 @@ import random
 from collections import deque
 import os
 project_path= os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(os.curdir))))
+print(project_path)
 import sys
 sys.path.insert(0, project_path+ '/Tools')
 from OUNoise import OUNoise
@@ -16,6 +17,8 @@ from MDPFramework import MDPEnvironment,  LearningAgent
 from ActorCriticNetworks import ActorNetwork, CriticNetwork
 T.Tensor.ndim = property(lambda self: len(self.shape))
 
+critic_save_path= os.path.join(project_path, 'Data', 'Temp', 'critic_data')
+actor_save_path= os.path.join(project_path, 'Data', 'Temp', 'actor_data')
 @dataclass(kw_only=True)
 class DDPGAgent(LearningAgent, EnforceClassTyping):
     def __init__(self, 
@@ -35,10 +38,34 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
                  max_size: int= 1024,
                  batch_size: int= 64):
         self.environment= environment
-        self.actor = ActorNetwork(observation_size, action_size, actor_layers, actor_activations, 'DDPGMainActor', actor_learning_rate, project_path)
-        self.critic = CriticNetwork(observation_size, action_size, critic_layers, critic_activations, 'DDPGMainCritic', critic_learning_rate, project_path)
-        self.target_actor = ActorNetwork(observation_size, action_size, actor_layers, actor_activations, 'DDPGTargetActor', actor_learning_rate, project_path)
-        self.target_critic = CriticNetwork(observation_size, action_size, critic_layers, critic_activations, 'DDPGTargetCritic', critic_learning_rate, project_path)
+        self.actor = ActorNetwork(observation_size, 
+                                  action_size, 
+                                  actor_layers, 
+                                  actor_activations, 
+                                  'DDPGMainActor', 
+                                  actor_learning_rate, 
+                                  actor_save_path)
+        self.critic = CriticNetwork(observation_size, 
+                                    action_size, 
+                                    critic_layers, 
+                                    critic_activations, 
+                                    'DDPGMainCritic', 
+                                    critic_learning_rate, 
+                                    critic_save_path)
+        self.target_actor = ActorNetwork(observation_size, 
+                                         action_size, 
+                                         actor_layers, 
+                                         actor_activations, 
+                                         'DDPGTargetActor', 
+                                         actor_learning_rate, 
+                                         actor_save_path)
+        self.target_critic = CriticNetwork(observation_size, 
+                                           action_size, 
+                                           critic_layers, 
+                                           critic_activations, 
+                                           'DDPGTargetCritic', 
+                                           critic_learning_rate, 
+                                           critic_save_path)
         for target_param, param in zip(self.target_actor.parameters(), self.actor.parameters()):
             target_param.data.copy_(param.data)
         for target_param, param in zip(self.target_critic.parameters(), self.critic.parameters()):

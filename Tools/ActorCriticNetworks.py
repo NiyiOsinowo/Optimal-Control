@@ -4,17 +4,16 @@ import torch.nn as nn
 import torch.optim as optim
 import os
 project_path= os.path.dirname(os.path.abspath(os.curdir))
-print(project_path)
 from EnforceTyping import enforce_method_typing
 class CriticNetwork(nn.Module):
-    def __init__(self, state_size: int, action_size: int, hidden_layers: tuple, layer_activations: tuple, name: str, learning_rate: float, project_path: str):
+    def __init__(self, state_size: int, action_size: int, hidden_layers: tuple, layer_activations: tuple, name: str, learning_rate: float, save_path: str):
         super(CriticNetwork, self).__init__()
-        if not os.path.exists(os.path.join(project_path, 'Data', 'Temp', 'critic_data')):
-            os.makedirs(os.path.join(project_path, 'Data', 'Temp', 'critic_data'))
-            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'critic_data', name)
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+            self.checkpoint_file = os.path.join(save_path, name)
         else:
             
-            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'critic_data', name)
+            self.checkpoint_file = os.path.join(save_path, name)
         layers = []
 
         current_input_size = state_size+ action_size
@@ -49,14 +48,14 @@ class CriticNetwork(nn.Module):
             self.network.load_state_dict(T.load(self.checkpoint_file))
  
 class ActorNetwork(nn.Module):
-    def __init__(self, state_size: int, action_size: int, hidden_layers: tuple, layer_activations: tuple, name: str, learning_rate: float, project_path: str):
+    def __init__(self, state_size: int, action_size: int, hidden_layers: tuple, layer_activations: tuple, name: str, learning_rate: float, save_path: str):
         super(ActorNetwork, self).__init__()
-        if not os.path.exists(os.path.join(project_path, 'Data', 'Temp', 'actor_data')):
-            os.makedirs(os.path.join(project_path, 'Data', 'Temp', 'actor_data'))
-            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'actor_data', name)
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+            self.checkpoint_file = os.path.join(save_path, name)
         else:
             
-            self.checkpoint_file = os.path.join(project_path, 'Data', 'Temp', 'actor_data', name)
+            self.checkpoint_file = os.path.join(save_path, name)
         layers = []
 
         current_input_size = state_size
