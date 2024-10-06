@@ -8,7 +8,6 @@ import random
 from collections import deque
 import os
 project_path= os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(os.curdir))))
-print(project_path)
 import sys
 sys.path.insert(0, project_path+ '/Tools')
 from OUNoise import OUNoise
