@@ -156,10 +156,10 @@ class ParticleInField(MDPEnvironment):
     distance_gained = np.linalg.norm(state.position - self.target_position) - np.linalg.norm(next_state.position - self.target_position)
     energy_consumed = (control[0]**2 + control[1]**2)/2
     reward = (
-        self.proximity_weight * distance_gained
+        -self.proximity_weight * distance_gained
         # - self.energy_weight * energy_consumed
-        - self.terminal_signal_weight * int(terminal_signal)
-    )
+        + self.terminal_signal_weight * int(terminal_signal)
+        )
     return reward
   
   @enforce_method_typing
