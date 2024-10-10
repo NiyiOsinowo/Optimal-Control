@@ -127,28 +127,29 @@ class DDPGAgent(LearningAgent, EnforceClassTyping):
         self.target_actor.eval()
         self.target_critic.eval()
         self.critic.eval()
-        
-        target_actions = self.actor.forward(new_state)
-        critic_value_ = self.target_critic.forward(new_state, target_actions) 
+        self.critic.optimizer.zero_grad()
+
+        with T.no_grad():
+            target_actions = self.target_actor.forward(new_state)
+            critic_value_ = self.target_critic.forward(new_state, target_actions) 
+            q_targets = reward + self.discount_rate * critic_value_ * (1 - done)
         q_expected = self.critic.forward(state, action)
-        q_targets = reward + self.discount_rate * critic_value_ * (1 - done)
 
         critic_loss = nn.MSELoss()(q_expected, q_targets.detach())
         self.critic.train()
-        self.critic.optimizer.zero_grad()
         critic_loss.backward()
         self.critic.optimizer.step()
 
         self.actor.eval()
         self.critic.eval()
 
-        mu = self.actor.forward(state)
-        Actor_loss = -self.critic.forward(state, mu)
-
-        Actor_loss = T.mean(Actor_loss)
-        self.actor.train()
         self.actor.optimizer.zero_grad()
-        Actor_loss.backward()
+        expected_actions = self.actor.forward(state)
+        actor_loss = -self.critic.forward(state, expected_actions)
+
+        actor_loss = T.mean(actor_loss)
+        self.actor.train()
+        actor_loss.backward()
         self.actor.optimizer.step()
 
         self.update_network_parameters()
