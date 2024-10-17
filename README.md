@@ -10,7 +10,7 @@ The systems modelled in this project are also categorised based on how much info
 
 ## The Objective
 
-The objective of this project is to determine the most effective optimal control method for each system 
+The objective of this project is to implement an optimal control strategy for different classes of optimal control problems
 
 # Table of Contents
 
