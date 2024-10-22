@@ -1,12 +1,12 @@
 # Optimal Control
 
-The aim of this project is to explore and compare the different methods of solving optimal control problems.
+This project aims to explore and compare the different methods of solving optimal control problems.
 
 This project will focus on apply different optimal control methods on different types of systems with the goal.
 
-The optimal control methods implemented in this projects are categorised based on how much information about the system is available as Planning Methods which require complete information on the system, Model-Based Learning which require some information on the system, and Model-Free Learning which requires almost no information on the system.
+The optimal control methods implemented in this project are categorised based on how much information about the system is available as Planning Methods which require complete information on the system, Model-Based Learning which requires some information on the system, and Model-Free Learning which requires almost no information on the system.
 
-The systems modelled in this project are also categorised based on how much information about the system is available as Deterministic systems, and Stochastic Systems.
+The systems modeled in this project are also categorised based on how much information about the system is available as Deterministic systems, and Stochastic Systems.
 
 ## The Objective
 
@@ -28,15 +28,15 @@ The objective of this project is to implement an optimal control strategy for di
     + [Types of optimization problems](./Systems/README.md)
     + [Methods of optimization](./Systems/README.md)
     - [Optimization in Control Theory](./Systems/README.md)
-* [Optimal Control Methods](#9)
-  - [Analytical/ Planning Methods](#10)
-    + [Variational Calculus](#11)
-    + [Minimum Principle](#12)
-    + [Hamilton-Jacobi-Bellman Equation](#13)
-  - [Learning Methods](#14)
-    + [Dynamic Programming](#15)
-    + [Model-Based Reinforcemnt Learning](#16)
-    + [Model-Free Reinforment Learning](#17)
+* [Optimal Control Methods](./Optimal-Control-Methods/README.md)
+  - [Analytical/ Planning Methods](./Optimal-Control-Methods/README.md)
+    + [Variational Calculus](./Optimal-Control-Methods/README.md)
+    + [Minimum Principle](./Optimal-Control-Methods/README.md)
+    + [Hamilton-Jacobi-Bellman Equation](./Optimal-Control-Methods/README.md)
+  - [Learning Methods](./Optimal-Control-Methods/README.md)
+    + [Dynamic Programming](./Optimal-Control-Methods/README.md)
+    + [Model-Based Reinforcemnt Learning](./Optimal-Control-Methods/README.md)
+    + [Model-Free Reinforment Learning](./Optimal-Control-Methods/README.md)
 * [Implementation of Solutions](#18)
   - [Case Study 1: Trajectory Optimization](#19)
     + [System Design](#20)
@@ -67,3 +67,11 @@ torch      2.3.1
 ```
 ## References
 Model-based Reinforcement Learning: A Survey.(https://arxiv.org/pdf/2006.16712)
+
+### TO DO/ Future Updates
+- Complete testing for DDPG Algorithm
+- Hyperparametric optimization of DDPG solution of the particle in a field problem
+- Complete implementation of the MDP algorithm
+- Testing the MDP algorithm
+- Use the MDP algorithm to solve the the particle in a field problem
+- Benchmark the performance of these algorithms
