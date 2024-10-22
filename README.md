@@ -35,7 +35,7 @@ The objective of this project is to implement an optimal control strategy for di
     + [Hamilton-Jacobi-Bellman Equation](./Optimal-Control-Methods/README.md)
   - [Learning Methods](./Optimal-Control-Methods/README.md)
     + [Dynamic Programming](./Optimal-Control-Methods/README.md)
-    + [Model-Based Reinforcemnt Learning](./Optimal-Control-Methods/README.md)
+    + [Model-Based Reinforcemnt Learning](./Optimal Control Methods/README.md)
     + [Model-Free Reinforment Learning](./Optimal-Control-Methods/README.md)
 * [Implementation of Solutions](#18)
   - [Case Study 1: Trajectory Optimization](#19)
